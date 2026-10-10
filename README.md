@@ -24,6 +24,10 @@
   <a href="docs/HOST-SETUP.md">Connect a host</a>
 </p>
 
+<p align="center">
+  <img src="assets/how-it-works.svg" width="840" alt="Animation: a user asks the AI a question, the AI host calls your MCP server tool, your handler returns data, the host shows your Angular view in the chat, and a click in the view calls the server again.">
+</p>
+
 ---
 
 ## What does this package do?

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" width="840" height="380" role="img" aria-labelledby="t d">
+<title id="t">How Angular MCP Bridge works</title>
+<desc id="d">A user asks a question. The AI host calls your MCP server tool, receives data, and opens your Angular view inside the conversation. A click in the view calls the tool again.</desc>
+<style>
+:root{--bg:#f6f7f3;--card:#ffffff;--line:#d5dbcd;--ink:#242824;--mute:#6b7561;--accent:#557b2f;--soft:#e8efe0}
+@media (prefers-color-scheme:dark){:root{--bg:#1c201a;--card:#262b24;--line:#3a4136;--ink:#eef1ea;--mute:#a3ad98;--accent:#8fc25a;--soft:#2f3a27}}
+text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;fill:var(--ink)}
+.m{fill:var(--mute)} .b{font-weight:600}
+.card{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.hl{fill:none;stroke:var(--accent);stroke-width:3}
+.ar{fill:none;stroke:var(--line);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.arg{fill:none;stroke:var(--accent);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+.chip{fill:var(--soft);stroke:var(--accent);stroke-width:1.2}
+.dot{fill:var(--accent)}
+@keyframes k_u{0.00%{opacity:0}0.80%{opacity:1}18.20%{opacity:1}19.00%{opacity:0}100.00%{opacity:0}}@keyframes k_host{0.00%{opacity:0}0.80%{opacity:1}18.20%{opacity:1}18.99%{opacity:0}19.00%{opacity:0}19.80%{opacity:1}37.20%{opacity:1}38.00%{opacity:0}55.99%{opacity:0}56.80%{opacity:1}75.20%{opacity:1}76.00%{opacity:0}100.00%{opacity:0}}@keyframes k_srv{0.00%{opacity:0}18.99%{opacity:0}19.80%{opacity:1}37.20%{opacity:1}37.99%{opacity:0}38.00%{opacity:0}38.80%{opacity:1}55.20%{opacity:1}56.00%{opacity:0}75.99%{opacity:0}76.80%{opacity:1}96.20%{opacity:1}97.00%{opacity:0}100.00%{opacity:0}}@keyframes k_a1{0.00%{opacity:0}0.80%{opacity:1}18.20%{opacity:1}19.00%{opacity:0}100.00%{opacity:0}}@keyframes k_a2{0.00%{opacity:0}18.99%{opacity:0}19.80%{opacity:1}37.20%{opacity:1}38.00%{opacity:0}100.00%{opacity:0}}@keyframes k_a3{0.00%{opacity:0}37.99%{opacity:0}38.80%{opacity:1}55.20%{opacity:1}56.00%{opacity:0}100.00%{opacity:0}}@keyframes k_a4{0.00%{opacity:0}55.99%{opacity:0}56.80%{opacity:1}75.20%{opacity:1}76.00%{opacity:0}100.00%{opacity:0}}@keyframes k_a5{0.00%{opacity:0}75.99%{opacity:0}76.80%{opacity:1}96.20%{opacity:1}97.00%{opacity:0}100.00%{opacity:0}}@keyframes k_c1{0.00%{opacity:0}0.80%{opacity:1}18.20%{opacity:1}19.00%{opacity:0}100.00%{opacity:0}}@keyframes k_c2{0.00%{opacity:0}18.99%{opacity:0}19.80%{opacity:1}37.20%{opacity:1}38.00%{opacity:0}100.00%{opacity:0}}@keyframes k_c3{0.00%{opacity:0}37.99%{opacity:0}38.80%{opacity:1}55.20%{opacity:1}56.00%{opacity:0}100.00%{opacity:0}}@keyframes k_c4{0.00%{opacity:0}55.99%{opacity:0}56.80%{opacity:1}75.20%{opacity:1}76.00%{opacity:0}100.00%{opacity:0}}@keyframes k_c5{0.00%{opacity:0}75.99%{opacity:0}76.80%{opacity:1}96.20%{opacity:1}97.00%{opacity:0}100.00%{opacity:0}}@keyframes k_view{0.00%{opacity:0}55.99%{opacity:0}56.80%{opacity:1}98.20%{opacity:1}99.00%{opacity:0}100.00%{opacity:0}}@keyframes k_click{0.00%{opacity:0}83.99%{opacity:0}84.80%{opacity:1}96.20%{opacity:1}97.00%{opacity:0}100.00%{opacity:0}}.u{opacity:0;animation:k_u 16s linear infinite}.host{opacity:0;animation:k_host 16s linear infinite}.srv{opacity:0;animation:k_srv 16s linear infinite}.a1{opacity:0;animation:k_a1 16s linear infinite}.a2{opacity:0;animation:k_a2 16s linear infinite}.a3{opacity:0;animation:k_a3 16s linear infinite}.a4{opacity:0;animation:k_a4 16s linear infinite}.a5{opacity:0;animation:k_a5 16s linear infinite}.c1{opacity:0;animation:k_c1 16s linear infinite}.c2{opacity:0;animation:k_c2 16s linear infinite}.c3{opacity:0;animation:k_c3 16s linear infinite}.c4{opacity:0;animation:k_c4 16s linear infinite}.c5{opacity:0;animation:k_c5 16s linear infinite}.view{opacity:0;animation:k_view 16s linear infinite}.click{opacity:0;animation:k_click 16s linear infinite}
+.static{opacity:0}
+@media (prefers-reduced-motion:reduce){
+ .u,.host,.srv,.a1,.a2,.a3,.a4,.a5,.c1,.c2,.c3,.c4,.c5,.click{animation:none;opacity:0}
+ .view{animation:none;opacity:1} .static{opacity:1}
+}
+
+</style>
+<rect width="840" height="380" rx="20" fill="var(--bg)"/>
+<!-- arrows (idle) -->
+<path class="ar" d="M190 110H328"/><path class="ar" d="M530 92H648"/><path class="ar" d="M648 128H530"/>
+<path class="ar" d="M430 150V196"/><path class="ar" d="M560 250H730V150"/>
+<!-- nodes -->
+<rect class="card" x="30" y="70" width="160" height="80" rx="14"/>
+<text class="b" x="110" y="104" text-anchor="middle" font-size="17">You</text>
+<text class="m" x="110" y="128" text-anchor="middle" font-size="13">chat with the AI</text>
+<rect class="card" x="330" y="70" width="200" height="80" rx="14"/>
+<text class="b" x="430" y="104" text-anchor="middle" font-size="17">AI host</text>
+<text class="m" x="430" y="128" text-anchor="middle" font-size="13">Claude, ChatGPT, VS Code</text>
+<rect class="card" x="650" y="70" width="160" height="80" rx="14"/>
+<text class="b" x="730" y="104" text-anchor="middle" font-size="17">Your MCP server</text>
+<text class="m" x="730" y="128" text-anchor="middle" font-size="13">tool + handler</text>
+<!-- node highlights -->
+<rect class="hl u" x="30" y="70" width="160" height="80" rx="14"/>
+<rect class="hl host" x="330" y="70" width="200" height="80" rx="14"/>
+<rect class="hl srv" x="650" y="70" width="160" height="80" rx="14"/>
+<!-- active arrows -->
+<path class="arg a1" d="M190 110H328"><animate attributeName="stroke-dashoffset" from="26" to="0" dur="0.8s" repeatCount="indefinite"/></path>
+<path class="arg a2" d="M530 92H648"><animate attributeName="stroke-dashoffset" from="26" to="0" dur="0.8s" repeatCount="indefinite"/></path>
+<path class="arg a3" d="M648 128H530"><animate attributeName="stroke-dashoffset" from="26" to="0" dur="0.8s" repeatCount="indefinite"/></path>
+<path class="arg a4" d="M430 150V196"><animate attributeName="stroke-dashoffset" from="26" to="0" dur="0.8s" repeatCount="indefinite"/></path>
+<path class="arg a5" d="M560 250H730V150"><animate attributeName="stroke-dashoffset" from="26" to="0" dur="0.8s" repeatCount="indefinite"/></path>
+<!-- chips -->
+<g class="c1"><rect class="chip" x="20" y="22" width="190" height="30" rx="15"/><text x="115" y="42" text-anchor="middle" font-size="13">“Show me running shoes”</text></g>
+<g class="c2"><rect class="chip" x="528" y="38" width="124" height="26" rx="13"/><text x="590" y="55" text-anchor="middle" font-size="12" class="b">search_products</text></g>
+<g class="c3"><rect class="chip" x="520" y="146" width="140" height="26" rx="13"/><text x="590" y="163" text-anchor="middle" font-size="12" class="b">products + view</text></g>
+<g class="c4"><rect class="chip" x="440" y="162" width="112" height="24" rx="12"/><text x="496" y="178" text-anchor="middle" font-size="12" class="b">opens view</text></g>
+<g class="c5"><rect class="chip" x="572" y="262" width="150" height="26" rx="13"/><text x="647" y="279" text-anchor="middle" font-size="12" class="b">calls the tool again</text></g>
+<!-- Angular view inside the host -->
+<g class="view"><rect class="card" x="300" y="200" width="260" height="120" rx="12"/>
+<rect x="300" y="200" width="260" height="22" rx="12" fill="var(--soft)"/><rect x="300" y="212" width="260" height="10" fill="var(--soft)"/>
+<text class="m" x="312" y="215" font-size="11">Your Angular view · runs in a sandboxed iframe</text>
+<g><rect x="314" y="234" width="68" height="50" rx="8" fill="var(--soft)"/><rect x="390" y="234" width="68" height="50" rx="8" fill="var(--soft)"/><rect x="466" y="234" width="68" height="50" rx="8" fill="var(--soft)"/>
+<text class="m" x="348" y="263" text-anchor="middle" font-size="11">Shoe A</text><text class="m" x="424" y="263" text-anchor="middle" font-size="11">Shoe B</text><text class="m" x="500" y="263" text-anchor="middle" font-size="11">Shoe C</text></g>
+<rect x="466" y="292" width="68" height="20" rx="10" fill="var(--accent)"/><text x="500" y="306" text-anchor="middle" font-size="11" style="fill:#fff" class="b">Add</text>
+<g class="click"><circle cx="500" cy="302" r="6" fill="none" stroke="var(--accent)" stroke-width="2.5"><animate attributeName="r" from="6" to="22" dur="1s" repeatCount="indefinite"/><animate attributeName="opacity" from="1" to="0" dur="1s" repeatCount="indefinite"/></circle>
+<path d="M508 308l0 16 4-4 4 9 3-1.4-4-9 6-.4z" fill="var(--ink)"/></g></g>
+<!-- captions -->
+<g font-size="16" class="b">
+<text class="c1" x="420" y="358" text-anchor="middle">1  You ask the AI a question</text>
+<text class="c2" x="420" y="358" text-anchor="middle">2  The AI picks your tool and calls your server</text>
+<text class="c3" x="420" y="358" text-anchor="middle">3  Your handler returns typed data and the view</text>
+<text class="c4" x="420" y="358" text-anchor="middle">4  The host shows your Angular view in the chat</text>
+<text class="c5" x="420" y="358" text-anchor="middle">5  A click in the view calls your server again</text>
+<text class="static" x="420" y="358" text-anchor="middle">Ask · tool call · data · Angular view · interact</text>
+</g>
+</svg>
