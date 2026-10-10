@@ -2,7 +2,7 @@
 
 Typed MCP tools, Angular UI resources and HTTP serving on the maintained MCP SDK. The Node server does not load Angular; Angular runs inside the registered UI resource.
 
-This version is local and unpublished. Generated apps contain vendored framework tarballs and the dependencies needed below. From a generated app, follow `docs/GETTING-STARTED.md` first and use `docs/SERVER.md` for the complete server guide. Do not rely on an npm registry install for this version.
+Part of [Angular MCP Bridge](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge). Install with `npm install @angular-mcp-bridge/server`. To start a new app, follow the [README](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme) and the [first-app tutorial](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/FIRST-APP.md). The complete server guide is [docs/SERVER.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/SERVER.md).
 
 ## Run the supplied app
 
@@ -137,4 +137,4 @@ Mixed public/private tools default the HTTP gate to optional, with per-tool enfo
 
 ChatGPT entrypoints/display modes/quick actions are typed on tool `openai` options. Global/thread entrypoints must accept `{}`; quick actions need a valid registered target and icons. Resource writes use the optional `openai/resources/write` host extension. These features require host support; standard MCP tool execution alone does not imply every host extension is available.
 
-The generated app's `docs/SERVER.md` contains complete examples for these APIs, and `docs/HOST-SETUP.md` covers local inspection, public HTTPS and OAuth. Local protocol tests do not certify a production identity provider or host submission.
+The generated app's [docs/SERVER.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/SERVER.md) contains complete examples for these APIs, and [docs/HOST-SETUP.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/HOST-SETUP.md) covers local inspection, public HTTPS and OAuth. Local protocol tests do not certify a production identity provider or host submission.

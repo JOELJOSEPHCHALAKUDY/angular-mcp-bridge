@@ -2,7 +2,7 @@
 
 Run a conversation through a real in-memory MCP server/client with any AI SDK 7 model. Use deterministic mock models for runner/schema tests, then explicit provider models for tool-selection evaluations. This package does not render Angular, choose a provider, load credentials or import a test runner at runtime.
 
-This v0.1 package is a local tarball. Generated apps include it when created from a complete framework package bundle; install Vitest separately if you choose that runner. AI SDK 7 is a peer dependency. Their `docs/EVALUATIONS.md` contains a complete no-credentials mock-model test and exact commands.
+Part of [Angular MCP Bridge](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge). Install with `npm install @angular-mcp-bridge/testing`. To start a new app, follow the [README](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme) and the [first-app tutorial](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/FIRST-APP.md). Install Vitest separately if you use it as the runner; AI SDK 7 is a peer dependency. See [docs/EVALUATIONS.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/EVALUATIONS.md).
 
 ## A runner-neutral evaluation function
 
@@ -58,4 +58,4 @@ The assertion deliberately tests whether the supplied model selected the expecte
 
 Private tool-result `_meta` is available for local assertions and excluded from model, judge and exported transcripts. Public arguments/results/prompts/errors remain, so review public data before sharing transcripts.
 
-See sibling [server documentation](../server/README.md) for application options and [contracts documentation](../contracts/README.md) for shared typing. Generated apps include detailed `docs/EVALUATIONS.md` and Angular recipes; local model mocks do not certify real-host rendering or production model quality.
+See sibling [server documentation](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/tree/main/packages/server#readme) for application options and [contracts documentation](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/tree/main/packages/contracts#readme) for shared typing. Generated apps include detailed [docs/EVALUATIONS.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/EVALUATIONS.md) and Angular recipes; local model mocks do not certify real-host rendering or production model quality.

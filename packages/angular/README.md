@@ -2,7 +2,7 @@
 
 Angular 22's DI, readonly signals, native resources, standalone directives/components and `DestroyRef` power this MCP Apps UI library. The host handles tool calls; a widget does not need its own REST API client.
 
-This v0.1 package is distributed as a local tarball and is not published to npm. Generated apps already reference its vendored tarball; run `npm install` in that app. Its peers are Angular core/common 22.2.2, MCP Apps 2.0.3, MCP core 2.3.1, the contracts package and Zod 4. In a generated app, `docs/GETTING-STARTED.md` and `docs/ANGULAR-API.md` provide the full setup and reference.
+Part of [Angular MCP Bridge](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge). Install with `npm install @angular-mcp-bridge/angular`. To start a new app, follow the [README](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme) and the [first-app tutorial](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/FIRST-APP.md). Peers: Angular core/common 22.2.2, MCP Apps 2.0.3, MCP core 2.3.1, the contracts package and Zod 4. Reference: [docs/ANGULAR-API.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/ANGULAR-API.md).
 
 ## Minimal host-aware view
 
@@ -60,4 +60,4 @@ Secondary entry points keep optional features separate. `/forms` requires the op
 
 State is private by default. Persistence requires a stable unique view-instance key and a restoration schema. `share()` and `autoShare: true` publish intentionally. Host-specific actions are feature-detected and can throw `BridgeError` with `code: 'unsupported'`. A local modal fallback stays inside the iframe; native host modals retain their host-owned lifecycle.
 
-See the sibling [contracts package](../contracts/README.md) for shared schemas, [server package](../server/README.md) for registration, and [testing package](../testing/README.md) for conversation tests. Generated apps include complete standalone examples in `docs/RECIPES.md`. The library's local tests establish API/protocol wiring, not certification in every real host.
+See the sibling [contracts package](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/tree/main/packages/contracts#readme) for shared schemas, [server package](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/tree/main/packages/server#readme) for registration, and [testing package](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/tree/main/packages/testing#readme) for conversation tests. Generated apps include complete standalone examples in `docs/RECIPES.md`. The library's local tests establish API/protocol wiring, not certification in every real host.

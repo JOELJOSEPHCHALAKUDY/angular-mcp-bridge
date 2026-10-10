@@ -1,6 +1,6 @@
 # @angular-mcp-bridge/cli
 
-Build Angular MCP Apps with standalone components, Angular CLI builders and a local workbench. This release is available from the local checkout; it has not been published to npm.
+Build Angular MCP Apps with standalone components, Angular CLI builders and a local workbench. Part of [Angular MCP Bridge](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge). The app creator currently runs from a checkout of the repository; see the [README](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme).
 
 From the framework checkout, use supported Node 24.15+ and run:
 
@@ -37,7 +37,7 @@ npx ng generate @angular-mcp-bridge/cli:view reports
 npx ng generate @angular-mcp-bridge/cli:tool search
 ```
 
-`ng add` integrates an existing Angular 22 standalone app with a server and workbench. Until publication, install the local CLI tarball and use `--local /absolute/path/angular-mcp-bridge` to copy prepared framework tarballs. The collection supports idempotent integration, collision checks, Angular dry runs and a configuration migration through `ng update`. Read `docs/TOOLING-NATIVE.md` in the checkout or generated app for complete commands.
+`ng add` integrates an existing Angular 22 standalone app with a server and workbench. Until publication, install the local CLI tarball and use `--local /absolute/path/angular-mcp-bridge` to copy prepared framework tarballs. The collection supports idempotent integration, collision checks, Angular dry runs and a configuration migration through `ng update`. Read [docs/TOOLING-NATIVE.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/TOOLING-NATIVE.md) in the checkout or generated app for complete commands.
 
 The lower-level generator remains available for prepared packages:
 
@@ -49,4 +49,4 @@ Both create paths protect nonempty folders and reject symbolic-link destinations
 
 `bridge.config.json` supplies the server entry, preferred ports, default view and views directory. Nested `view.json` files map views to Angular applications. Builds generate literal view types, self-contained HTML and a portable manifest. An optional `delivery.mode: "assets"` plus explicit HTTPS `assetOrigin` preserves separate Angular lazy chunks and writes hashed public assets with resource CSP metadata. Generated applications contain the local CLI, both example views, documentation and an Angular MCP agent skill; they have no source aliases back into the framework checkout.
 
-Read the generated app's `docs/TOOLING.md` for configuration and artifact details.
+Read the generated app's [docs/TOOLING.md](https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/blob/main/docs/TOOLING.md) for configuration and artifact details.
