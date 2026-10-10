@@ -28,24 +28,33 @@ export function creationInstructions(directory, installed = false) {
 
 export async function createProject(target, local) {
   const directory = await assertEmptyDestination(target);
-  if (!local) throw new Error('This unpublished release requires --local <framework-folder>. From the framework checkout, use npm run create -- ../my-angular-app.');
-  const source = resolve(local, 'dist/tarballs');
-  if (within(template, directory) || within(source, directory)) throw new Error('Choose a target outside the scaffold template and framework tarballs.');
-  let tarballs;
-  try { tarballs = await readdir(source); }
-  catch (error) { if (error.code === 'ENOENT') throw new Error('Framework packages are not prepared. From the framework checkout, use npm run create -- ../my-angular-app.'); throw error; }
   const version = JSON.parse(await readFile(resolve(packageRoot, 'package.json'), 'utf8')).version;
-  const packages = ['angular', 'contracts', 'server'].map(name => {
-    const file = `angular-mcp-bridge-${name}-${version}.tgz`;
-    if (!tarballs.includes(file)) throw new Error(`Missing ${file}. From the framework checkout, use npm run create -- ../my-angular-app to build and pack automatically.`);
-    return file;
-  });
   const manifest = JSON.parse(await readFile(resolve(template, 'package.json'), 'utf8'));
   manifest.name = basename(directory).toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'angular-mcp-app';
-  for (const name of ['angular', 'contracts', 'server']) manifest.dependencies[`@angular-mcp-bridge/${name}`] = `file:vendor/angular-mcp-bridge-${name}-${version}.tgz`;
-  for (const name of ['cli', 'testing']) {
-    const file = `angular-mcp-bridge-${name}-${version}.tgz`;
-    if (tarballs.includes(file)) { packages.push(file); manifest.devDependencies[`@angular-mcp-bridge/${name}`] = `file:vendor/${file}`; }
+  const packages = [];
+  let source;
+  if (local) {
+    // Local mode: install the framework from prepared tarballs in a framework checkout.
+    source = resolve(local, 'dist/tarballs');
+    if (within(template, directory) || within(source, directory)) throw new Error('Choose a target outside the scaffold template and framework tarballs.');
+    let tarballs;
+    try { tarballs = await readdir(source); }
+    catch (error) { if (error.code === 'ENOENT') throw new Error('Framework packages are not prepared. From the framework checkout, use npm run create -- ../my-angular-app.'); throw error; }
+    for (const name of ['angular', 'contracts', 'server']) {
+      const file = `angular-mcp-bridge-${name}-${version}.tgz`;
+      if (!tarballs.includes(file)) throw new Error(`Missing ${file}. From the framework checkout, use npm run create -- ../my-angular-app to build and pack automatically.`);
+      packages.push(file);
+      manifest.dependencies[`@angular-mcp-bridge/${name}`] = `file:vendor/${file}`;
+    }
+    for (const name of ['cli', 'testing']) {
+      const file = `angular-mcp-bridge-${name}-${version}.tgz`;
+      if (tarballs.includes(file)) { packages.push(file); manifest.devDependencies[`@angular-mcp-bridge/${name}`] = `file:vendor/${file}`; }
+    }
+  } else {
+    // Registry mode: the packages are published, so install them by version.
+    if (within(template, directory)) throw new Error('Choose a target outside the scaffold template.');
+    for (const name of ['angular', 'contracts', 'server']) manifest.dependencies[`@angular-mcp-bridge/${name}`] = version;
+    for (const name of ['cli', 'testing']) manifest.devDependencies[`@angular-mcp-bridge/${name}`] = version;
   }
   // Prepare away from the destination, then publish the complete directory.
   // rename refuses a nonempty directory created while preparation was running.
@@ -55,7 +64,7 @@ export async function createProject(target, local) {
   try {
     await cp(template, staging, { recursive: true, force: false, errorOnExist: true });
     await rename(resolve(staging, '_gitignore'), resolve(staging, '.gitignore'));
-    await mkdir(resolve(staging, 'vendor'), { recursive: true });
+    if (packages.length) await mkdir(resolve(staging, 'vendor'), { recursive: true });
     for (const file of packages) {
       const path = resolve(source, file); if (!(await lstat(path)).isFile()) throw new Error(`Framework tarball is not a regular file: ${file}`);
       await cp(path, resolve(staging, 'vendor', file), { force: false, errorOnExist: true });

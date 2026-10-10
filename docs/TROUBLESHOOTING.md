@@ -9,7 +9,7 @@ From the app folder, start with `npm run doctor`. Read the first failed check an
 | `package.json` or `bridge.config.json` is missing | Change into the generated app or framework folder before running commands. |
 | Node engine warning or Angular rejects Node | Use Node 24.15.0+, newer 22.x from 22.22.3, or 26+. Run `npm install`; npm scripts then select the pinned local runtime. |
 | Angular CLI/tsx/module not found | Run `npm install` in this app. A global Angular installation is unnecessary. Use `npm run …` scripts. |
-| npm cannot find `@angular-mcp-bridge/*` in the registry | Packages are unpublished. Create through the framework's `npm run create -- ../my-app --install`; keep the generated `vendor/` tarballs and `file:` dependencies. |
+| npm cannot find `@angular-mcp-bridge/*` in the registry | Check your network and registry settings, and that the versions in `package.json` exist (`npm view @angular-mcp-bridge/server versions`). Apps created from a framework checkout use `vendor/` tarballs and `file:` dependencies; keep them. |
 | CLI reports missing local tarballs | In the framework use the simple creator, or run `npm run build` and `npm run pack:all` before advanced `create --local`. |
 | Create refuses an existing folder | Choose a new or empty folder. It refuses to overwrite existing work. |
 | `start` reports a missing manifest | Run `npm run build` first. For development use `npm run dev`, which prepares the initial resources. |

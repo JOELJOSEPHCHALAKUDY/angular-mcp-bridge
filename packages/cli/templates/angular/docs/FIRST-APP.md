@@ -1,100 +1,58 @@
 # Build your first tool and view
 
-Add a `greet` tool that returns a typed message and opens a standalone Angular greeting view. Start in a working starter from [Getting started](GETTING-STARTED.md). Stop `npm run dev` before adding a view.
+One command creates a working tool and Angular view. Then you edit one file on each side. Start in a working starter from [Getting started](GETTING-STARTED.md).
 
-A shared contract defines input/output and the view to open. A handler supplies its result. An Angular component reads that result through a typed signal. The generator connects these pieces for you.
+## 1. Create it
 
-## 1. Generate the tool and Angular view
-
-```sh
-npx ng generate @angular-mcp-bridge/cli:view greeting --tool greet
-```
-
-This creates `apps/greeting/`, `views/greeting/view.json` and `examples/generated/greet/`. It registers the tool and handler in the registries configured by `bridge.config.json.native` and updates the literal view-name type. No manual server registration is needed. The generated greeting already works; the following steps customize it.
-
-The CLI package is installed by the local creator. For an existing Angular app, use [the native setup guide](TOOLING-NATIVE.md) first. `npm run add-view -- greeting` is a shortcut that chooses the tool name `open_greeting`; this tutorial uses `greet` explicitly.
-
-## 2. Customize the shared contract
-
-Replace **`examples/generated/greet/contract.ts`** with this complete content:
-
-```ts
-import { defineTool, readOnlyAnnotations } from '@angular-mcp-bridge/contracts';
-import { z } from 'zod';
-import type { ViewName } from '../../../generated/view-names.js';
-
-export const greetTool = defineTool({
-  title: 'Greet someone',
-  description: 'Use this when the user wants a greeting. Opens the Angular greeting view.',
-  input: z.object({ name: z.string().min(1).default('Angular') }),
-  output: z.object({ message: z.string() }),
-  annotations: readOnlyAnnotations,
-  view: 'greeting' satisfies ViewName,
-});
-```
-
-The shared file contains schemas, never backend credentials or implementation imports. `view` matches the generated name, so misspellings fail type checking. The feature folder is editable source despite its name; only `generated/view-names.ts` and `dist/` are regenerated build output.
-
-## 3. Customize the typed server handler
-
-Replace **`examples/generated/greet/handler.ts`** with this complete content:
-
-```ts
-import type { ToolHandlers } from '@angular-mcp-bridge/server';
-import { greetTool } from './contract.js';
-
-export const greetHandler: ToolHandlers<{ greet: typeof greetTool }>['greet'] = ({ name }) => ({
-  data: { message: `Hello, ${name}!` },
-  text: `Greeted ${name}.`,
-});
-```
-
-The generator has already imported this handler into `examples/server/generated-handlers.ts`. The starter merges that registry with its existing handlers. `data` becomes validated `structuredContent` seen by the model and view; `text` supplies brief narration. The manifest discovers the new view automatically.
-
-## 4. Render the result in Angular
-
-Replace **`apps/greeting/src/app.ts`** with this complete content. Keep the generated `main.ts` and its `provideMcpBridge()` provider.
-
-```ts
-import { Component, inject } from '@angular/core';
-import { createToolClient, McpBridge } from '@angular-mcp-bridge/angular';
-import { greetTool } from '../../../examples/generated/greet/contract.js';
-
-const client = createToolClient({ greet: greetTool });
-
-@Component({
-  selector: 'bridge-root',
-  standalone: true,
-  template: `
-    <main>
-      <p>Bridge: {{ bridge.status() }}</p>
-      @let result = greeting();
-      @switch (result.status) {
-        @case ('success') { <h1>{{ result.output.message }}</h1> }
-        @case ('error') { <p role="alert">{{ result.error.message }}</p> }
-        @case ('cancelled') { <p role="status">Request cancelled.</p> }
-        @default { <p>Run Greet someone in the workbench.</p> }
-      }
-    </main>
-  `,
-})
-export class AppComponent {
-  readonly bridge = inject(McpBridge);
-  readonly greeting = client.info('greet');
-}
-```
-
-`client.info()` is a computed, validated signal of the invocation that opened this view. It reads the host result. To initiate another request from a button, see the [typed command recipe](RECIPES.md).
-
-## 5. Run it
+Stop `npm run dev` if it is running, then:
 
 ```sh
-npm run check
+npm run add-view -- greeting
 npm run dev
 ```
 
-In the printed Workbench URL, select **Greet someone**, enter `Ada` in the `name` input (or use `{"name":"Ada"}` in the JSON editor), and click **Run tool**. The preview should show **Hello, Ada!** and **connected**. **Tool result** should contain `structuredContent.message`.
+Open the printed Workbench URL, select **open_greeting**, click **Run tool**. The preview shows **Hello, World!** (the default `name`) with the bridge **connected**. Nothing else is needed for this to work.
 
-Select **Angular dev server · HMR**, change the template and save to iterate. For a production check, stop dev and run `npm run build`; the new view appears in `dist/bridge-manifest.json` and `dist/views/greeting.html`. Both build and dev compile Angular templates.
+The command created:
+
+| Side | File | What it holds |
+| --- | --- | --- |
+| Tool | `examples/generated/open_greeting/contract.ts` | Input and output schemas (Zod), shared with the view |
+| Tool | `examples/generated/open_greeting/handler.ts` | The server function that returns the result |
+| View | `apps/greeting/src/app.ts` | The Angular component |
+
+The contract and handler are separate on purpose: the view imports the contract, so a handler that talks to a database or API must never live in the same file.
+
+## 2. Edit the tool
+
+In `contract.ts`, change the schemas. In `handler.ts`, return data that matches the output schema; the generated handler is already:
+
+```ts
+input => ({
+  data: { message: `Hello, ${input.name}!` },
+  text: `Hello, ${input.name}!`,
+})
+```
+
+`data` becomes validated `structuredContent`; `text` is what the model reads. The generator already registered both files, so there is nothing to wire up. Misspelled view names fail type checking.
+
+## 3. Edit the view
+
+In `apps/greeting/src/app.ts`, read the result with a typed signal:
+
+```ts
+readonly info = client.info('open_greeting');   // typed from the contract
+```
+
+and render `info().output.message` in the template (the generated template already does). `client.info()` is a validated signal of the invocation that opened the view. To call the tool again from a button, see the [typed command recipe](RECIPES.md). Choose **Angular dev server · HMR** under Preview source in the workbench, edit the template, save, and the view updates.
+
+## 4. Check and build
+
+```sh
+npm run check
+npm run build
+```
+
+The view appears in `dist/bridge-manifest.json` and `dist/views/greeting.html`.
 
 Continue with [Angular recipes](RECIPES.md), [server features](SERVER.md), or [real-host setup](HOST-SETUP.md).

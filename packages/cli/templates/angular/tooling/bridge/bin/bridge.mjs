@@ -7,7 +7,7 @@ import { diagnoseProject, formatDiagnosis, supportedNodeVersion, supportedNodeRa
 export { createProject } from '../lib/create.mjs';
 
 const commandDescriptions = {
-  create: 'Create a standalone Angular app from prepared local framework packages.',
+  create: 'Create a standalone Angular app that installs the framework from npm.',
   doctor: 'Check Node, installed packages, configuration and build prerequisites.',
   dev: 'Build initial resources and start the MCP server, workbench and Angular HMR.',
   build: 'Build Angular views and the workbench, validate server types and bundle resources.',
@@ -17,7 +17,7 @@ const commandDescriptions = {
   deploy: 'Write a local Dockerfile and Compose artifact from an existing build.',
 };
 const details = {
-  create: 'Usage: angular-mcp-bridge create <folder> --local <framework-folder>\n\nThe local folder must contain built dist/tarballs. Existing work is protected.\nFrom the framework checkout, the easier path prepares packages automatically:\n  npm run create -- ../my-angular-app\n  npm run create -- ../my-angular-app --install\n\nWithout --install, run npm install in the new app, then npm run dev.',
+  create: 'Usage: angular-mcp-bridge create <folder> [--local <framework-folder>]\n\nInstalls the framework packages from npm. With --local, the folder must contain built dist/tarballs instead. Existing work is protected.\nFrom a framework checkout, this prepares local packages automatically:\n  npm run create -- ../my-angular-app\n  npm run create -- ../my-angular-app --install\n\nWithout --install, run npm install in the new app, then npm run dev.',
   doctor: 'Usage: angular-mcp-bridge doctor [--json]\n\nRun from the framework checkout or a generated app folder. Checks are local\nand read-only: no network, app code execution, credentials or environment files.\nExit 0: ready, possibly with rebuild warnings. Exit 1: setup needs attention.\nThe report supplies an actionable next command.',
   dev: 'Usage: angular-mcp-bridge dev\n\nInstall dependencies with npm install first. Dev builds initial resources,\nselects available ports and prints the actual workbench, MCP and view URLs.\nAngular template/component changes use HMR. Stop with Ctrl+C.',
   build: 'Usage: angular-mcp-bridge build\n\nInstall dependencies first. Uses Angular CLI application builders and generates\nview types plus dist/bridge-manifest.json and standalone widget HTML.',
@@ -27,7 +27,7 @@ const details = {
   deploy: 'Usage: angular-mcp-bridge deploy [folder]\n\nDefault folder: deploy. Requires npm run build and package-lock.json.\nWrites local container files, protects existing work, and does not publish.\nReview the generated configuration and provide production domain/OAuth settings.',
 };
 export function commandHelp(command) {
-  if (!command) return `Angular MCP Bridge v0.1.0\n\nUsage: angular-mcp-bridge <command> [options]\n\n${Object.entries(commandDescriptions).map(([name, description]) => `  ${name.padEnd(10)} ${description}`).join('\n')}\n\nLocal quickstart (this release is not on npm yet):\n  npm run create -- ../my-angular-app --install\n  cd ../my-angular-app\n  npm run dev\n\nHelp: angular-mcp-bridge <command> --help\nDiagnostics: angular-mcp-bridge doctor`;
+  if (!command) return `Angular MCP Bridge v0.1.1\n\nUsage: angular-mcp-bridge <command> [options]\n\n${Object.entries(commandDescriptions).map(([name, description]) => `  ${name.padEnd(10)} ${description}`).join('\n')}\n\nQuickstart:\n  npx @angular-mcp-bridge/cli create my-angular-app\n  cd my-angular-app\n  npm install\n  npm run dev\n\nHelp: angular-mcp-bridge <command> --help\nDiagnostics: angular-mcp-bridge doctor`;
   if (!details[command]) throw new Error(`Unknown command: ${command}. Run angular-mcp-bridge --help.`);
   return `${commandDescriptions[command]}\n\n${details[command]}\n\nOptions:\n  -h, --help  Show this command's help.`;
 }

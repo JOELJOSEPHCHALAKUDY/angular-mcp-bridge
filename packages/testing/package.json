@@ -1,6 +1,6 @@
 {
   "name": "@angular-mcp-bridge/testing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "type": "module",
   "description": "Model-driven MCP tool evaluations and transcript assertions",
@@ -18,8 +18,8 @@
     "build": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "@angular-mcp-bridge/server": "0.1.0",
-    "@angular-mcp-bridge/contracts": "0.1.0",
+    "@angular-mcp-bridge/server": "0.1.1",
+    "@angular-mcp-bridge/contracts": "0.1.1",
     "@modelcontextprotocol/client": "^2.3.1",
     "@modelcontextprotocol/server": "^2.3.1"
   },

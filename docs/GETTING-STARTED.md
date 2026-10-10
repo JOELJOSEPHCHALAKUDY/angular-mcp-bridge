@@ -13,7 +13,7 @@ npm --version
 
 You do not need an Angular CLI installed globally, an API key or a ChatGPT account for the local workbench. Internet access is needed for dependency installation. npm is the verified package manager; use the included npm lockfile for repeatable installs once generated.
 
-If you have not created an app yet, run `npm install` in the framework folder, followed by `npm run create -- ../my-angular-app --install`. Change into `../my-angular-app`. Packages are currently local and unpublished; do not use an npm registry command to create this version.
+If you have not created an app yet, run `npx @angular-mcp-bridge/cli create my-angular-app`, change into `my-angular-app` and run `npm install`. To develop the framework itself, run `npm run create -- ../my-angular-app --install` from a checkout of the repository.
 
 ## Run locally
 
@@ -75,6 +75,6 @@ npm run doctor
 | `bridge.config.json` | Server entry, workbench, output directory and port preferences. |
 | `generated/view-names.ts` | Generated types; regenerate through build, dev or add-view. |
 | `dist/` | Built resources; edit source files rather than these outputs. |
-| `vendor/` | Framework tarballs in a generated app; npm installs them locally. |
+| `vendor/` | Framework tarballs, present only when the app was created from a local checkout. |
 
 Next: [build your first tool and view](FIRST-APP.md). For common problems, use [Troubleshooting](TROUBLESHOOTING.md).

@@ -1,6 +1,6 @@
 {
   "name": "angular-mcp-bridge-workspace",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -34,9 +34,9 @@
     "deploy": "node packages/cli/bin/bridge.mjs deploy"
   },
   "dependencies": {
-    "@angular-mcp-bridge/angular": "0.1.0",
-    "@angular-mcp-bridge/contracts": "0.1.0",
-    "@angular-mcp-bridge/server": "0.1.0",
+    "@angular-mcp-bridge/angular": "0.1.1",
+    "@angular-mcp-bridge/contracts": "0.1.1",
+    "@angular-mcp-bridge/server": "0.1.1",
     "@angular/aria": "22.2.2",
     "@angular/cdk": "22.2.2",
     "@angular/common": "22.2.2",

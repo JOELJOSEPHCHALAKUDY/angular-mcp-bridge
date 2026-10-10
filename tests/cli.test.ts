@@ -15,22 +15,34 @@ import { createApp, main as createMain } from '../tooling/create-app.mjs';
 const runFile = promisify(execFile);
 async function localTarballs(root: string) {
   const tarballs = join(root, 'dist/tarballs'); await mkdir(tarballs, { recursive: true });
-  for (const name of ['angular', 'contracts', 'server']) await writeFile(join(tarballs, `angular-mcp-bridge-${name}-0.1.0.tgz`), 'fixture');
+  for (const name of ['angular', 'contracts', 'server']) await writeFile(join(tarballs, `angular-mcp-bridge-${name}-0.1.1.tgz`), 'fixture');
 }
 describe('project scaffolding', () => {
   it('creates a portable template with vendored packages', async () => {
     const directory = await mkdtemp(join(tmpdir(), 'bridge-cli-'));
     try {
       const tarballs = join(directory, 'framework/dist/tarballs'); await mkdir(tarballs, { recursive: true });
-      for (const name of ['angular','contracts','server']) await writeFile(join(tarballs, `angular-mcp-bridge-${name}-0.1.0.tgz`), 'fixture');
+      for (const name of ['angular','contracts','server']) await writeFile(join(tarballs, `angular-mcp-bridge-${name}-0.1.1.tgz`), 'fixture');
       const target = join(directory, 'My-App');
       await createProject(target, join(directory, 'framework'));
       const pkg = JSON.parse(await readFile(join(target, 'package.json'), 'utf8'));
       expect(pkg.name).toBe('my-app'); expect(pkg.dependencies['@angular/core']).toBe('22.2.2');
-      expect(pkg.dependencies['@angular-mcp-bridge/angular']).toBe('file:vendor/angular-mcp-bridge-angular-0.1.0.tgz');
+      expect(pkg.dependencies['@angular-mcp-bridge/angular']).toBe('file:vendor/angular-mcp-bridge-angular-0.1.1.tgz');
       expect((await readdir(join(target,'vendor'))).length).toBe(3);
       const config = JSON.parse(await readFile(join(target, 'tsconfig.json'), 'utf8')); expect(config.compilerOptions.paths).toBeUndefined();
       expect(await readFile(join(target, 'tooling/bundle-widget.mjs'), 'utf8')).toContain('esbuild');
+    } finally { await rm(directory, { recursive: true, force: true }); }
+  });
+  it('creates an app that installs the framework from npm when no local folder is given', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'bridge-cli-'));
+    try {
+      const target = join(directory, 'Registry-App');
+      await createProject(target);
+      const pkg = JSON.parse(await readFile(join(target, 'package.json'), 'utf8'));
+      expect(pkg.name).toBe('registry-app');
+      for (const name of ['angular', 'contracts', 'server']) expect(pkg.dependencies[`@angular-mcp-bridge/${name}`]).toMatch(/^\d+\.\d+\.\d+$/);
+      for (const name of ['cli', 'testing']) expect(pkg.devDependencies[`@angular-mcp-bridge/${name}`]).toMatch(/^\d+\.\d+\.\d+$/);
+      await expect(readdir(join(target, 'vendor'))).rejects.toThrow();
     } finally { await rm(directory, { recursive: true, force: true }); }
   });
   it('refuses to overwrite existing work', async () => {

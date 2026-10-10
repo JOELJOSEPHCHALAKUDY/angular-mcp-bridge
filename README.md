@@ -81,15 +81,16 @@ Choose **Angular dev server · HMR** under Preview source, edit `apps/demo/src/a
 
 ## Create your own app
 
-After installing this workspace's dependencies, run:
+Requires Node 24.15 or another [supported version](docs/GETTING-STARTED.md#before-you-start). Run:
 
 ```sh
-npm run create -- ../my-angular-app --install
-cd ../my-angular-app
+npx @angular-mcp-bridge/cli create my-angular-app
+cd my-angular-app
+npm install
 npm run dev
 ```
 
-The create command prepares local framework packages, copies the starter into an empty folder and installs its dependencies. The new app runs independently of this checkout. Omit `--install` to install separately. **These packages are not published to npm yet**; the local creator is the supported setup path today.
+The command copies the starter into a new folder and pins the framework packages (`@angular-mcp-bridge/angular`, `contracts`, `server`, `cli` and `testing`) from npm. The new app runs independently of this repository. To work on the framework itself, use `npm run create -- ../my-angular-app --install` from a checkout, which installs your local build instead.
 
 Then follow [Build your first tool and view](docs/FIRST-APP.md). It walks from `add-view` to a working greeting, with complete file contents and the exact server binding.
 

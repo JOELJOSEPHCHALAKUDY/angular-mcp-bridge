@@ -33,6 +33,7 @@ function sampleInput(schema: Tool['inputSchema']): Record<string, unknown> {
       </aside>
       <main>
         <div class="workspace-heading"><div><p class="section-label">LOCAL DEVELOPMENT / MCP APPS</p><h1>Workbench<span>.</span></h1><p>Call a tool. Inspect the result. See your Angular view.</p></div><button class="secondary" (click)="reconnect()" [disabled]="busy()">↻ Reconnect</button></div>
+        <select class="mobile-tools" aria-label="Server tool" [value]="selectedTool()?.name ?? ''" (change)="selectToolByName($any($event.target).value)">@for (tool of tools(); track tool.name) { <option [value]="tool.name">{{ tool.title || tool.name }}</option> }</select>
         @if (error()) { <div class="error" role="alert">{{ error() }}</div> }
         @for (warning of contextWarnings(); track warning) { <p class="context-warning" role="status">{{ warning }}</p> }
         <div class="workspace">
@@ -201,6 +202,7 @@ export class WorkbenchComponent implements AfterViewInit {
     } catch (error) { this.error.set(error instanceof Error ? error.message : String(error)); this.status.set('error'); }
     finally { this.busy.set(false); }
   }
+  selectToolByName(name: string) { const tool = this.tools().find(candidate => candidate.name === name); if (tool) this.selectTool(tool); }
   selectTool(tool: Tool) { this.selectedTool.set(tool); this.input.set(this.json(sampleInput(tool.inputSchema))); this.savedName.set(''); void this.refreshSavedInputs(tool); }
   private async refreshSavedInputs(tool: Tool) {
     const inputs = await this.savedInputStore.list(tool.name, tool.inputSchema);

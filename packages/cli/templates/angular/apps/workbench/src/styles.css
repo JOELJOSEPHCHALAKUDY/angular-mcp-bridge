@@ -17,3 +17,20 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .controls .webmcp-settings { display:block; width:100% }
 .controls .webmcp-settings label { justify-content:flex-start; align-items:center; gap:8px; font-size:11px; line-height:1.5; letter-spacing:0 }
 .controls .webmcp-settings input { margin:0 }
+
+/* Responsive fixes */
+.mobile-tools { display:none; width:100%; margin:0 0 16px; padding:11px 9px; border:1px solid #d5ddcc; border-radius:5px; background:#fbfcf9; color:#2d3b26; font-size:14px }
+.scenario input { width:100%; border:1px solid #d5ddcc; background:#fbfcf9; font:inherit; font-size:11px; padding:9px 7px; border-radius:4px; margin:10px 0 }
+.scenario .secondary { display:block; width:100%; margin-top:8px }
+@media(max-width:800px) {
+  .mobile-tools { display:block }
+  .scenario { display:block; width:100%; padding-right:0 }
+  .controls p, .controls label { font-size:12px }
+  .controls label { font-size:10px }
+  .scenario select, .scenario input, .controls #input-mode, .secondary, .run { min-height:44px; font-size:14px }
+  .preview-actions button, .inspector-tabs button { min-height:40px; font-size:12px }
+  .inspector-tabs { overflow-x:auto; gap:16px }
+  summary, pre { font-size:12px }
+  footer { font-size:10px }
+  .workspace-heading { flex-wrap:wrap }
+}

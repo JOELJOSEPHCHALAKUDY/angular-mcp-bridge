@@ -4,16 +4,18 @@ The bridge uses Angular's application and dev-server builders. A view is a stand
 
 ## Create your first app
 
-This release uses the local checkout; it is not published to npm yet. With a supported Node release installed, run these commands from the framework folder:
+With a supported Node release installed, create an app from npm:
 
 ```sh
+npx @angular-mcp-bridge/cli create my-angular-app
+cd my-angular-app
 npm install
-npm run create -- ../my-angular-app --install
-cd ../my-angular-app
 npm run dev
 ```
 
-The wrapper runs the local `build:packages` and `pack:all` scripts before scaffolding, so you do not need to pass `--local` or prepare tarballs manually. `--install` installs the generated app's dependencies. Omit it to install later with `npm install`. Dev builds the initial resources itself; a separate build is only needed for `start` or deployment artifacts.
+To develop the framework itself, run `npm install` and `npm run create -- ../my-angular-app --install` from a checkout; that installs your local build.
+
+From a checkout, the wrapper runs the local `build:packages` and `pack:all` scripts before scaffolding, so you do not need to pass `--local` or prepare tarballs manually. `--install` installs the generated app's dependencies. Omit it to install later with `npm install`. Dev builds the initial resources itself; a separate build is only needed for `start` or deployment artifacts.
 
 The destination must be new or empty. It is checked before any preparation and again before the staged scaffold is placed. Symbolic-link destinations, scaffold-template folders and framework-tarball folders are rejected. Choose a separate app folder, as in the quickstart. If app installation fails, the generated folder remains available and the error prints recovery commands. Nothing installs automatically without `--install`.
 

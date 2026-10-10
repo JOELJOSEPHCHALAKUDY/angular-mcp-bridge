@@ -4,23 +4,17 @@ The CLI package includes a genuine Angular schematic collection. Angular CLI run
 
 ## Add the bridge to an existing app
 
-This local release is unpublished. First prepare the framework packages in the bridge checkout:
+From an existing **Angular 22 standalone application**, install the CLI from npm and run `ng add`. Replace `my-app` with your Angular project name:
 
 ```sh
-npm install
-npm run build:packages
-npm run pack:all
-```
-
-From an existing **Angular 22 standalone application**, install the prepared CLI tarball, then run `ng add`. Replace `/absolute/path/angular-mcp-bridge` and `my-app` with your paths and Angular project name:
-
-```sh
-npm install --save-dev /absolute/path/angular-mcp-bridge/dist/tarballs/angular-mcp-bridge-cli-0.1.0.tgz
-npx ng add @angular-mcp-bridge/cli --project my-app --local /absolute/path/angular-mcp-bridge
+npm install --save-dev @angular-mcp-bridge/cli
+npx ng add @angular-mcp-bridge/cli --project my-app
 npm run mcp:dev
 ```
 
-`--project` is optional when the workspace contains one application. `--local` copies Angular, contracts, server and CLI tarballs into `vendor/` and writes portable `file:` dependencies. `--skip-install` updates the tree without scheduling `npm install`; install dependencies yourself before starting. Use `--dry-run` to inspect the integration first.
+To integrate a local build of the framework instead, run `npm install`, `npm run build:packages` and `npm run pack:all` in a checkout, install its `dist/tarballs/angular-mcp-bridge-cli-*.tgz`, and add `--local /absolute/path/angular-mcp-bridge` to the `ng add` command.
+
+`--project` is optional when the workspace contains one application. With `--local`, Angular, contracts, server and CLI tarballs are copied into `vendor/` with portable `file:` dependencies; without it, the packages install from npm. `--skip-install` updates the tree without scheduling `npm install`; install dependencies yourself before starting. Use `--dry-run` to inspect the integration first.
 
 The integration preserves the selected application's UI and original npm scripts. It adds `provideMcpBridge()` to its standalone bootstrap, makes that application the default view, adds an MCP server under `mcp/`, and creates a separate `mcp-workbench` Angular application. A scoped `mcp/package.json` enables ESM for the server while preserving the application's existing module setting. New scripts are `mcp:dev`, `mcp:build`, `mcp:start` and `mcp:doctor`. Repeating the same integration preserves the files and does not duplicate the provider. A different existing bridge server or conflicting files/scripts produce an error rather than a replacement.
 
