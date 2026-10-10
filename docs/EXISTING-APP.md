@@ -90,7 +90,7 @@ This first example displays public `structuredContent` from any tool. For schema
 
 ## Make a tool that opens your existing app
 
-Check **`bridge.config.json` → `defaultView`** for your existing application's view name. Its generated tool is named `open_<view>`, with hyphens converted to underscores. For example, an Angular project named `cv-app` has view `cv-app` and tool `open_cv_app`.
+Check **`bridge.config.json` → `defaultView`** for your existing application's view name. Its generated tool is named `open_<view>`, with hyphens converted to underscores. For example, an Angular project named `store-app` has view `store-app` and tool `open_store_app`.
 
 For that example, edit:
 
@@ -104,10 +104,10 @@ Use the actual tool folder created in your workspace; `open_cv_app` is an exampl
 
 ## Add a separate tool and view
 
-For a focused CV panel without replacing your existing UI, stop dev and run:
+For a focused product-list view without replacing your existing UI, stop dev and run:
 
 ```sh
-npx ng generate @angular-mcp-bridge/cli:view cv-panel --tool show_cv
+npx ng generate @angular-mcp-bridge/cli:view product-list --tool search_products
 npm run mcp:dev
 ```
 
@@ -115,11 +115,11 @@ Choose unused view and tool names. The generator creates and registers these edi
 
 | File | Purpose |
 | --- | --- |
-| `mcp/features/show_cv/contract.ts` | Shared input and output schemas |
-| `mcp/features/show_cv/handler.ts` | Server implementation |
-| `apps/cv-panel/src/app.ts` | A new standalone view that already reads the typed result |
+| `mcp/features/search_products/contract.ts` | Shared input and output schemas |
+| `mcp/features/search_products/handler.ts` | Server implementation |
+| `apps/product-list/src/app.ts` | A new standalone view that already reads the typed result |
 
-The generated example returns a greeting. Change the contract, handler and view together to return and render CV data. Select the new tool in the Workbench and run it to see this new view. A data-only tool can be generated with `npx ng generate @angular-mcp-bridge/cli:tool search`; it returns data without opening a view.
+The generated example returns a greeting. Change the contract, handler and view together to return and render your products. Select the new tool in the Workbench and run it to see this new view. A data-only tool can be generated with `npx ng generate @angular-mcp-bridge/cli:tool search`; it returns data without opening a view.
 
 ## Build and connect a host
 

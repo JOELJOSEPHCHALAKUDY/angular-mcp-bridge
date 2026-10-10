@@ -30,13 +30,13 @@
 
 Angular MCP Bridge lets an AI call your backend and show an interactive Angular view inside the conversation.
 
-For example, with a CV app, a user could ask **“Show me my work experience.”** Your server tool returns your experience data, and the host displays your Angular CV view. The user can then interact with that view.
+For example, with an online store, a user could ask **“Show me running shoes under $100.”** Your server tool returns matching products from your catalogue, and the host displays your Angular product grid. The user can then browse and filter those products.
 
 You build two parts:
 
 | Part | What you write | Where it runs |
 | --- | --- | --- |
-| **Tool** | A named server function with an input/output contract, such as `show_cv` | Your Node.js MCP server |
+| **Tool** | A named server function with an input/output contract, such as `search_products` | Your Node.js MCP server |
 | **View** | A standalone Angular component that displays the tool result | Inside the AI host’s sandboxed iframe |
 
 **MCP** is the protocol the host uses to discover and call tools. A **host** is an application such as ChatGPT, Claude or VS Code. The included **Workbench** is a local host simulator: use it to build and test without an AI account or API key.
@@ -84,10 +84,10 @@ Replace `my-app` with its project name from `angular.json`. Commit your current 
 
 **Try it:** open the printed **Workbench URL**, select the generated greeting tool, and click **Run tool**. Your app appears in the preview, and **Tool result** shows the returned greeting. Your existing UI displays that data only after you bind it to a bridge signal; installation does not connect your backend automatically.
 
-**Build your first real feature:** stop the dev process, then generate a dedicated CV view and tool:
+**Build your first real feature:** stop the dev process, then generate a dedicated product-list view and tool:
 
 ```sh
-npx ng generate @angular-mcp-bridge/cli:view cv-panel --tool show_cv
+npx ng generate @angular-mcp-bridge/cli:view product-list --tool search_products
 npm run mcp:dev
 ```
 
@@ -95,11 +95,11 @@ The generator registers the new feature automatically. Edit these files in **you
 
 | File | What to change |
 | --- | --- |
-| `mcp/features/show_cv/contract.ts` | The tool’s description, input and output schemas |
-| `mcp/features/show_cv/handler.ts` | Return your CV data or call your backend |
-| `apps/cv-panel/src/app.ts` | Render the result with Angular; the generated component already reads it |
+| `mcp/features/search_products/contract.ts` | The tool’s description, input and output schemas |
+| `mcp/features/search_products/handler.ts` | Return your product data or call your catalogue API |
+| `apps/product-list/src/app.ts` | Render the result with Angular; the generated component already reads it |
 
-Choose the new tool in the Workbench, enter its arguments and click **Run tool**. The initial generated example returns a greeting; replace its contract, handler and template together to display CV data. Backend credentials belong in the server handler, outside the shared contract and frontend.
+Choose the new tool in the Workbench, enter its arguments and click **Run tool**. The initial generated example returns a greeting; replace its contract, handler and template together to display your products. Backend credentials belong in the server handler, outside the shared contract and frontend.
 
 To display results in **your existing component** instead of a new view, follow the complete [existing-app walkthrough](docs/EXISTING-APP.md#display-a-result-in-your-existing-ui). It includes a copyable Angular component and explains which generated tool opens your original app.
 
@@ -119,7 +119,7 @@ Open the printed **Workbench URL**. The starter includes working example tools a
 Stop dev before generating another feature:
 
 ```sh
-npx ng generate @angular-mcp-bridge/cli:view cv-panel --tool show_cv
+npx ng generate @angular-mcp-bridge/cli:view product-list --tool search_products
 npm run dev
 ```
 
@@ -127,9 +127,9 @@ New starters use these paths:
 
 | File | Purpose |
 | --- | --- |
-| `examples/generated/show_cv/contract.ts` | Input/output schemas and tool description |
-| `examples/generated/show_cv/handler.ts` | Server implementation |
-| `apps/cv-panel/src/app.ts` | Angular view |
+| `examples/generated/search_products/contract.ts` | Input/output schemas and tool description |
+| `examples/generated/search_products/handler.ts` | Server implementation |
+| `apps/product-list/src/app.ts` | Angular view |
 
 Follow [Build your first tool and view](docs/FIRST-APP.md) for complete file contents and a working greeting example. New starters use `npm run dev`, `build`, `start` and `doctor`; existing-app integrations use their `mcp:*` equivalents.
 
