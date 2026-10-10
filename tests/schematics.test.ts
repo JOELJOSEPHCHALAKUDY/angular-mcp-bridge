@@ -17,7 +17,7 @@ async function existing() {
   let tree = await runner.runExternalSchematic('@schematics/angular', 'workspace', { name: 'existing', version: '22.2.2' }, new HostTree());
   tree = await runner.runExternalSchematic('@schematics/angular', 'application', { name: 'existing', projectRoot: '', standalone: true, skipInstall: true, skipTests: true, routing: false }, tree);
   const local = await mkdtemp(join(tmpdir(), 'bridge-schematic-')); roots.push(local); await mkdir(join(local, 'dist/tarballs'), { recursive: true });
-  for (const name of ['angular', 'contracts', 'server', 'cli']) await writeFile(join(local, `dist/tarballs/angular-mcp-bridge-${name}-0.1.3.tgz`), `fixture-${name}`);
+  for (const name of ['angular', 'contracts', 'server', 'cli']) await writeFile(join(local, `dist/tarballs/angular-mcp-bridge-${name}-0.1.4.tgz`), `fixture-${name}`);
   return { runner, tree, local };
 }
 async function integrated() { const value = await existing(); return { ...value, tree: await value.runner.runSchematic('ng-add', { local: value.local, skipInstall: true }, value.tree) }; }
@@ -34,8 +34,8 @@ describe('Angular native schematic collection', () => {
     const tree = await runner.runSchematic('ng-add', { local, skipInstall: true }, original.branch());
     expect(tree.readContent('/src/app/app.html')).toBe('<h1>My existing product</h1>');
     expect(readJson(tree, '/package.json').scripts).toMatchObject({ ...originalScripts, 'mcp:dev': 'angular-mcp-bridge dev', 'mcp:doctor': 'angular-mcp-bridge doctor' });
-    expect(readJson(tree, '/package.json').dependencies).toMatchObject({ '@angular-mcp-bridge/angular': 'file:vendor/angular-mcp-bridge-angular-0.1.3.tgz', '@angular/forms': '^22.2.0', '@angular/aria': '^22.2.0' });
-    expect(readJson(tree, '/package.json').devDependencies['@angular-mcp-bridge/cli']).toBe('file:vendor/angular-mcp-bridge-cli-0.1.3.tgz');
+    expect(readJson(tree, '/package.json').dependencies).toMatchObject({ '@angular-mcp-bridge/angular': 'file:vendor/angular-mcp-bridge-angular-0.1.4.tgz', '@angular/forms': '^22.2.0', '@angular/aria': '^22.2.0' });
+    expect(readJson(tree, '/package.json').devDependencies['@angular-mcp-bridge/cli']).toBe('file:vendor/angular-mcp-bridge-cli-0.1.4.tgz');
     expect(tree.readContent('/src/app/app.config.ts')).toContain('provideMcpBridge({ name: "existing" })');
     expect(readJson(tree, '/bridge.config.json')).toMatchObject({ defaultView: 'existing', server: { entry: 'mcp/main.ts', tsConfig: 'tsconfig.mcp.json' }, native: { project: 'existing', contracts: 'mcp/tools.ts', handlers: 'mcp/handlers.ts' } });
     expect(tree.readContent('/mcp/main.ts')).toContain("assets: { directory: resolve('dist/assets')");
@@ -119,7 +119,7 @@ describe('Angular native schematic collection', () => {
   });
   it('rejects ambiguous existing workspaces and missing local tarballs without replacing the app', async () => {
     const { runner, tree, local } = await existing();
-    await rm(join(local, 'dist/tarballs/angular-mcp-bridge-server-0.1.3.tgz'));
+    await rm(join(local, 'dist/tarballs/angular-mcp-bridge-server-0.1.4.tgz'));
     await expect(runner.runSchematic('ng-add', { local, skipInstall: true }, tree)).rejects.toThrow('Missing angular-mcp-bridge-server');
     expect(tree.exists('/bridge.config.json')).toBe(false);
     const multiple = await runner.runExternalSchematic('@schematics/angular', 'application', { name: 'second', projectRoot: 'apps/second', standalone: true, skipInstall: true, skipTests: true }, tree);

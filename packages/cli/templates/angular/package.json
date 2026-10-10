@@ -20,9 +20,9 @@
     "preview": "tsx tooling/preview.ts"
   },
   "dependencies": {
-    "@angular-mcp-bridge/angular": "0.1.3",
-    "@angular-mcp-bridge/contracts": "0.1.3",
-    "@angular-mcp-bridge/server": "0.1.3",
+    "@angular-mcp-bridge/angular": "0.1.4",
+    "@angular-mcp-bridge/contracts": "0.1.4",
+    "@angular-mcp-bridge/server": "0.1.4",
     "@angular/aria": "22.2.2",
     "@angular/cdk": "22.2.2",
     "@angular/common": "22.2.2",
