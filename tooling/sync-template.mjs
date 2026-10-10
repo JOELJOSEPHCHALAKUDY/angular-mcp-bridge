@@ -10,7 +10,7 @@ for (const entry of ['apps', 'examples', 'views', '.agents', 'llms.txt', 'bridge
 // links to packages/tests that do not exist in a consumer's app.
 await rm(resolve(target, 'docs'), { recursive: true, force: true });
 await mkdir(resolve(target, 'docs'), { recursive: true });
-for (const guide of ['index.md', 'GETTING-STARTED.md', 'FIRST-APP.md', 'RECIPES.md', 'ANGULAR-API.md', 'RUNTIME.md', 'SERVER.md', 'HOST-SETUP.md', 'TOOLING.md', 'TOOLING-NATIVE.md', 'FORMS-AND-WEBMCP.md', 'PERFORMANCE.md', 'EVALUATIONS.md', 'TROUBLESHOOTING.md', 'ARCHITECTURE.md', 'workbench-preview.png']) {
+for (const guide of ['index.md', 'GETTING-STARTED.md', 'FIRST-APP.md', 'EXISTING-APP.md', 'RECIPES.md', 'ANGULAR-API.md', 'RUNTIME.md', 'SERVER.md', 'HOST-SETUP.md', 'TOOLING.md', 'TOOLING-NATIVE.md', 'FORMS-AND-WEBMCP.md', 'PERFORMANCE.md', 'EVALUATIONS.md', 'TROUBLESHOOTING.md', 'ARCHITECTURE.md', 'workbench-preview.png']) {
   await cp(resolve('docs', guide), resolve(target, 'docs', guide));
 }
 await rm(resolve(target, 'tooling/bridge'), { recursive: true, force: true });
