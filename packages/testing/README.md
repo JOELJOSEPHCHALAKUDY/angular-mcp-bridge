@@ -52,7 +52,7 @@ The assertion deliberately tests whether the supplied model selected the expecte
 | `assertChat(chat)` | Typed once/with/never/failed/order/no-tools/speech assertions and `.not`. |
 | `chatMatchers` | Runner-neutral matcher functions for explicit registration. |
 | `createEvaluationSuite({ onTestFinished, defaults, extend })` | Optional injected lifecycle/defaults; no global `expect.chat` mutation. |
-| `.judgment(criteria, { judge | model })` | Explicit custom or model grading; no hidden default paid call. |
+| `.judgment(criteria, { judge \| model })` | Explicit custom or model grading; no hidden default paid call. |
 
 `send()` serializes turns; `send(prompt, { signal })` supports cancellation. Steps/timeouts are bounded and cleanup is idempotent. Judge cancellation/provider failures are distinct `Judge unavailable` infrastructure errors. `context.authInfo` tests authorization with an already-verified identity; use HTTP tests for token verification.
 

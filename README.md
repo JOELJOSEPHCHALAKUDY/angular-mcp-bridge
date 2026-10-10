@@ -35,6 +35,8 @@
 
 ## Quickstart
 
+Requires Node 24.15 or another [supported version](docs/GETTING-STARTED.md#before-you-start).
+
 ```sh
 npx @angular-mcp-bridge/cli create my-angular-app
 cd my-angular-app
@@ -48,7 +50,7 @@ Open the **Workbench** URL it prints, select a tool and click **Run tool**. Then
 npm run add-view -- greeting
 ```
 
-See [Build your first tool and view](docs/FIRST-APP.md) for the walkthrough.
+The command copies the starter into a new folder and pins the framework packages from npm; the app runs independently of this repository. See [Build your first tool and view](docs/FIRST-APP.md) for the walkthrough.
 
 ## Add it to an existing Angular app
 
@@ -111,8 +113,9 @@ flowchart TD
 
 ## How to use it
 
+Inside an app created with the Quickstart:
+
 ```sh
-npm install
 npm run dev                       # start the server, views and Workbench
 npm run add-view -- greeting      # create a new tool and Angular view
 ```
@@ -124,34 +127,6 @@ npm run add-view -- greeting      # create a new tool and Angular view
 5. **Ship:** `npm run build` writes the server bundle and one HTML file per view. `npm run start` serves them. Follow [Host setup](docs/HOST-SETUP.md) to connect ChatGPT, Claude or VS Code, and [Server guide](docs/SERVER.md) for authentication.
 
 The step-by-step version is in [Build your first tool and view](docs/FIRST-APP.md).
-
-## Run the included demo (from a checkout)
-
-From this folder, with Node 24.15.0 or another [supported version](docs/GETTING-STARTED.md#before-you-start):
-
-```sh
-npm install
-npm run dev
-```
-
-Open the **Workbench** URL printed in your terminal. You should see **connected**, four server tools, and the project browser. Click **Run tool**, select **Ready**, then open **Angular integration lab** to try resources and UI tools. Local development needs no API key or host account.
-
-Choose **Angular dev server · HMR** under Preview source, edit `apps/demo/src/app.ts`, and save to see the view update. Use Ctrl+C in the terminal to stop development. The CLI selects available ports, so use the printed URLs.
-
-## Create your own app
-
-Requires Node 24.15 or another [supported version](docs/GETTING-STARTED.md#before-you-start). Run:
-
-```sh
-npx @angular-mcp-bridge/cli create my-angular-app
-cd my-angular-app
-npm install
-npm run dev
-```
-
-The command copies the starter into a new folder and pins the framework packages (`@angular-mcp-bridge/angular`, `contracts`, `server`, `cli` and `testing`) from npm. The new app runs independently of this repository. To work on the framework itself, use `npm run create -- ../my-angular-app --install` from a checkout, which installs your local build instead.
-
-Then follow [Build your first tool and view](docs/FIRST-APP.md). It walks from `add-view` to a working greeting, with complete file contents and the exact server binding.
 
 ## Find your next step
 
@@ -191,3 +166,18 @@ npm run pack:all
 Browser tests use `npm run test:e2e`; install Chromium with `npx playwright install chromium` or set `BROWSER_EXECUTABLE` to an existing compatible browser. `npm run preview` serves an existing production build at `http://127.0.0.1:3000`.
 
 Read [Architecture](docs/ARCHITECTURE.md) for implementation details.
+
+### Run the included demo
+
+From a checkout of this repository, with Node 24.15.0 or another supported version:
+
+```sh
+npm install
+npm run dev
+```
+
+Open the **Workbench** URL printed in your terminal. You should see **connected**, four server tools, and the project browser. Click **Run tool**, select **Ready**, then open **Angular integration lab** to try resources and UI tools. Local development needs no API key or host account.
+
+Choose **Angular dev server · HMR** under Preview source, edit `apps/demo/src/app.ts`, and save to see the view update. Use Ctrl+C in the terminal to stop development. The CLI selects available ports, so use the printed URLs.
+
+To scaffold an app that installs your local build instead of npm, run `npm run create -- ../my-angular-app --install`.
