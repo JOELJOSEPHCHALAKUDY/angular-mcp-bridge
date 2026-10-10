@@ -1,6 +1,54 @@
-# Angular MCP Bridge
+<p align="center">
+  <img src="assets/logo.svg" width="120" alt="Angular MCP Bridge logo">
+</p>
 
-Build interactive MCP Apps with Angular 22.2.2. Define a typed tool, write a standalone Angular view, and test them together in the local workbench. Angular signals, dependency injection, `resource()` and `DestroyRef` handle view state and cleanup.
+<h1 align="center">Angular MCP Bridge</h1>
+
+<p align="center">
+  Build interactive <a href="https://modelcontextprotocol.io">MCP Apps</a> with Angular.<br>
+  Typed tools, signal-based views and a local workbench.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@angular-mcp-bridge/cli"><img src="https://img.shields.io/npm/v/@angular-mcp-bridge/cli?color=537435&label=npm" alt="npm version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-537435" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/Angular-22-537435" alt="Angular 22">
+  <img src="https://img.shields.io/badge/Node-%E2%89%A524.15-537435" alt="Node 24.15 or newer">
+</p>
+
+<p align="center">
+  <a href="#quickstart">Quickstart</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="docs/index.md">Documentation</a> ·
+  <a href="docs/HOST-SETUP.md">Connect a host</a>
+</p>
+
+---
+
+## Why Angular MCP Bridge
+
+- **One typed contract.** Define a tool's input and output once with Zod. The server handler and the Angular view share the types, so a mismatch fails at compile time.
+- **Angular all the way.** Standalone components, signals, dependency injection, `resource()` and `DestroyRef`. No React runtime.
+- **Develop without a host account.** The Workbench simulates a host locally, with an inspector, saved inputs, fixtures and host profiles. No ChatGPT or Claude account is needed to build.
+- **One command per feature.** `npm run add-view -- name` generates the contract, handler and view together.
+- **Built on the official SDKs.** Runs on `@modelcontextprotocol/*`, with optional OAuth, middleware, events and Signal Forms.
+
+## Quickstart
+
+```sh
+npx @angular-mcp-bridge/cli create my-angular-app
+cd my-angular-app
+npm install
+npm run dev
+```
+
+Open the **Workbench** URL it prints, select a tool and click **Run tool**. Then add your own:
+
+```sh
+npm run add-view -- greeting
+```
+
+See [Build your first tool and view](docs/FIRST-APP.md) for the walkthrough.
 
 ## How it works
 
@@ -66,7 +114,7 @@ npm run add-view -- greeting      # create a new tool and Angular view
 
 The step-by-step version is in [Build your first tool and view](docs/FIRST-APP.md).
 
-## Try the included app
+## Run the included demo (from a checkout)
 
 From this folder, with Node 24.15.0 or another [supported version](docs/GETTING-STARTED.md#before-you-start):
 

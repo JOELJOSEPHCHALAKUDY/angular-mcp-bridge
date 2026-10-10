@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Angular MCP Bridge logo">
+  <rect width="256" height="256" rx="56" fill="#2d3b26"/>
+  <!-- bridge deck -->
+  <path d="M40 160h176" stroke="#f3f6ef" stroke-width="14" stroke-linecap="round"/>
+  <!-- arch -->
+  <path d="M64 160c0-48 28-80 64-80s64 32 64 80" fill="none" stroke="#9cc76b" stroke-width="14" stroke-linecap="round"/>
+  <!-- hangers -->
+  <path d="M96 160v-46M128 160V80M160 160v-46" stroke="#f3f6ef" stroke-width="8" stroke-linecap="round"/>
+  <!-- end nodes -->
+  <circle cx="52" cy="160" r="14" fill="#9cc76b"/>
+  <circle cx="204" cy="160" r="14" fill="#9cc76b"/>
+  <!-- piers -->
+  <path d="M96 186v26M160 186v26" stroke="#f3f6ef" stroke-width="8" stroke-linecap="round" opacity=".55"/>
+</svg>
