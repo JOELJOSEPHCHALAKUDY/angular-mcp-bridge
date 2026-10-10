@@ -12,7 +12,7 @@ The framework checkout already includes Vitest and AI SDK 7. A generated app inc
 npm install --save-dev vitest
 ```
 
-The current framework packages are local v0.1 tarballs. If you assembled an app manually, install the testing tarball from your release bundle and its `ai` peer before using this guide; the package is not yet published to the npm registry. The runner itself does not depend on Vitest.
+Apps created with the Quickstart already include `@angular-mcp-bridge/testing`. In another project, run `npm install --save-dev @angular-mcp-bridge/testing ai` before using this guide. The runner itself does not depend on Vitest.
 
 Create `tests/evaluation-fixture.ts`. This uses the generated app's existing server definition, replaces built widget HTML with an inline fixture, and supplies a fresh deterministic model per test. No widget build or provider credentials are needed for this fixture.
 
