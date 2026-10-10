@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "packages/contracts/src/**/*.ts",
+    "packages/server/src/**/*.ts",
+    "examples/server/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "tests/e2e/**"
+  ]
+}

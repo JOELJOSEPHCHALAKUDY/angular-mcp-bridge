@@ -1,0 +1,33 @@
+{
+  "name": "@angular-mcp-bridge/contracts",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Angular MCP Apps Bridge contracts library",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "zod": "^4.2.0"
+  },
+  "author": "Joel Joseph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge.git",
+    "directory": "packages/contracts"
+  },
+  "homepage": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/issues"
+  }
+}

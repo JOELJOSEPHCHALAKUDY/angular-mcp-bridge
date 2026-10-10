@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema", "type": "object", "additionalProperties": false,
+  "required": ["name"],
+  "properties": {
+    "name": { "type": "string", "$default": { "$source": "argv", "index": 0 }, "description": "Unique MCP tool name." },
+    "view": { "type": "string", "description": "Optional existing view to render; omit for a data-only tool." }
+  }
+}

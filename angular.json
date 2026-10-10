@@ -1,0 +1,149 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "analytics": false
+  },
+  "projects": {
+    "bridge": {
+      "projectType": "library",
+      "root": "packages/angular",
+      "sourceRoot": "packages/angular/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/angular/ng-package.json",
+            "tsConfig": "packages/angular/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "demo": {
+      "projectType": "application",
+      "root": "apps/demo",
+      "sourceRoot": "apps/demo/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/demo/src/main.ts",
+            "index": "apps/demo/src/index.html",
+            "tsConfig": "apps/demo/tsconfig.app.json",
+            "outputPath": "dist/demo",
+            "styles": [
+              "apps/demo/src/styles.css"
+            ],
+            "optimization": true,
+            "outputHashing": "all",
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "900kB",
+                "maximumError": "1.5MB"
+              }
+            ]
+          },
+          "configurations": {
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "outputHashing": "none"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "demo:build:development",
+            "proxyConfig": "proxy.conf.json"
+          }
+        }
+      }
+    },
+    "workbench": {
+      "projectType": "application",
+      "root": "apps/workbench",
+      "sourceRoot": "apps/workbench/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/workbench/src/main.ts",
+            "index": "apps/workbench/src/index.html",
+            "tsConfig": "apps/workbench/tsconfig.app.json",
+            "outputPath": "dist/workbench",
+            "styles": [
+              "apps/workbench/src/styles.css"
+            ],
+            "optimization": true,
+            "outputHashing": "all",
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "900kB",
+                "maximumError": "1.5MB"
+              }
+            ]
+          },
+          "configurations": {
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "outputHashing": "none"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "workbench:build:development",
+            "proxyConfig": "proxy.conf.json"
+          }
+        }
+      }
+    },
+    "lab": {
+      "projectType": "application",
+      "root": "apps/lab",
+      "sourceRoot": "apps/lab/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/lab/src/main.ts",
+            "index": "apps/lab/src/index.html",
+            "tsConfig": "apps/lab/tsconfig.app.json",
+            "outputPath": "dist/lab",
+            "styles": [
+              "apps/lab/src/styles.css"
+            ],
+            "optimization": true,
+            "outputHashing": "all",
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "900kB",
+                "maximumError": "1.5MB"
+              }
+            ]
+          },
+          "configurations": {
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "outputHashing": "none"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "lab:build:development",
+            "proxyConfig": "proxy.conf.json"
+          }
+        }
+      }
+    }
+  }
+}

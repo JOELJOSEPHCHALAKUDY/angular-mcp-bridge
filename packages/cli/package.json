@@ -1,0 +1,43 @@
+{
+  "name": "@angular-mcp-bridge/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Scaffold an Angular MCP App",
+  "bin": {
+    "angular-mcp-bridge": "./bin/bridge.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "schematics",
+    "templates",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
+  },
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  },
+  "ng-update": {
+    "migrations": "./schematics/migrations.json"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.1",
+    "@angular-devkit/schematics": "22.2.2",
+    "@schematics/angular": "22.2.2",
+    "typescript": "~6.0.3"
+  },
+  "author": "Joel Joseph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/issues"
+  }
+}

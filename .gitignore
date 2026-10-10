@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.angular/
+*.tgz
+playwright-report/
+test-results/
+.env
+.cache/
+
+.bridge-runtime.json
+.bridge-proxy.json
+generated/
+deployment/

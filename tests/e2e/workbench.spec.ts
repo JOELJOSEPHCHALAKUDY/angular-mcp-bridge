@@ -1,0 +1,47 @@
+import { test, expect } from '@playwright/test';
+import { selectInspectorTab } from './inspector.js';
+test('production resource handshakes, calls tools, changes theme and shares context', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  const view = page.frameLocator('iframe');
+  await expect(view.getByRole('heading', { name: 'Projects.' })).toBeVisible();
+  await expect(view.getByRole('button', { name: /Atlas workspace/ })).toBeVisible();
+  await view.getByRole('button', { name: 'In progress', exact: true }).click();
+  await expect(view.getByRole('button', { name: /Fieldnotes/ })).toBeVisible();
+  await expect(view.getByRole('button', { name: /Atlas workspace/ })).toHaveCount(0);
+  await view.getByRole('button', { name: /Fieldnotes/ }).click();
+  await expect(view.getByRole('heading', { name: 'Fieldnotes' })).toBeVisible();
+  await view.getByRole('button', { name: /Discuss this project/ }).click();
+  await expect(page.locator('summary').filter({ hasText: 'ui/message' })).toBeVisible();
+  await view.getByRole('button', { name: /Share selection with model/ }).click();
+  await selectInspectorTab(page, 'Model context');
+  await expect(page.locator('.inspector-content')).toContainText('fieldnotes');
+  await page.getByRole('button', { name: 'Toggle preview theme' }).click();
+  await expect(view.locator('main')).toHaveAttribute('data-theme', 'dark');
+  await page.getByRole('button', { name: 'Toggle mobile preview' }).click();
+  await expect(page.locator('.preview-frame')).toHaveClass(/mobile/);
+  expect(errors).toEqual([]);
+});
+test('limited host disables unavailable actions and malformed arguments are recoverable', async ({ page }) => {
+  await page.goto('/'); const view = page.frameLocator('iframe');
+  await expect(view.getByRole('button', { name: /Atlas workspace/ })).toBeVisible();
+  await page.getByRole('combobox', { name: 'Host profile' }).selectOption('limited');
+  await expect(view.getByRole('button', { name: /Atlas workspace/ })).toBeVisible();
+  await view.getByRole('button', { name: /Atlas workspace/ }).click();
+  await expect(view.getByRole('button', { name: /Discuss this project/ })).toBeDisabled();
+  await expect(view.getByRole('button', { name: /Share selection with model/ })).toBeDisabled();
+  await page.getByRole('textbox', { name: /ARGUMENTS/ }).fill('{broken');
+  await page.getByRole('button', { name: 'Run tool', exact: false }).click();
+  await expect(page.getByRole('alert')).toBeVisible();
+  await page.getByRole('textbox', { name: /ARGUMENTS/ }).fill('{"status":"ready"}');
+  await page.getByRole('button', { name: 'Run tool', exact: false }).click();
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(view.getByRole('button', { name: /Atlas workspace/ })).toBeVisible();
+  await expect(view.getByRole('button', { name: /Fieldnotes/ })).toHaveCount(0);
+});
+test('workbench remains usable on a small screen', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 }); await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Workbench.' })).toBeVisible();
+  await expect(page.frameLocator('iframe').getByRole('heading', { name: 'Projects.' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});

@@ -1,0 +1,40 @@
+{
+  "name": "@angular-mcp-bridge/server",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Angular MCP Apps Bridge server library",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@angular-mcp-bridge/contracts": "0.1.0",
+    "@modelcontextprotocol/ext-apps": "^2.0.3",
+    "@modelcontextprotocol/server": "^2.3.1",
+    "@modelcontextprotocol/node": "^2.1.1",
+    "express": "^5.2.1",
+    "jose": "^6.2.12",
+    "yaml": "^2.8.1",
+    "zod": "^4.2.0"
+  },
+  "author": "Joel Joseph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge.git",
+    "directory": "packages/server"
+  },
+  "homepage": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/issues"
+  }
+}

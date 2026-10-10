@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.angular/
+*.tgz
+playwright-report/
+test-results/
+.env
+.cache/

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "viewsDirectory": "views",
+  "defaultView": "projects",
+  "outputDirectory": "dist",
+  "native": {
+    "contracts": "examples/shared/generated-tools.ts",
+    "handlers": "examples/server/generated-handlers.ts",
+    "directory": "examples/generated"
+  },
+  "server": {
+    "entry": "examples/server/main.ts",
+    "port": 3000
+  },
+  "workbench": {
+    "project": "workbench",
+    "port": 4200
+  }
+}

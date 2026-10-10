@@ -1,0 +1,29 @@
+# Angular MCP Bridge
+
+> Angular 22.2.2 framework for interactive MCP Apps. Use standalone components, DI, signals, resource() for reads and DestroyRef for ownership. Framework packages are currently unpublished; generated apps use vendored local tarballs.
+
+## Start
+
+- [Documentation](docs/index.md): guide map.
+- [Getting started](docs/GETTING-STARTED.md): prerequisites, npm install, npm run dev and actual printed URLs.
+- [First app](docs/FIRST-APP.md): complete shared contract, server handler and Angular view.
+- [Angular skill](.agents/skills/angular-mcp-app/SKILL.md): project-specific coding instructions.
+
+## Reference
+
+- [Angular APIs](docs/ANGULAR-API.md)
+- [Runtime recipes](docs/RUNTIME.md)
+- [Native generators and asset delivery](docs/TOOLING-NATIVE.md)
+- [Signal Forms and experimental WebMCP](docs/FORMS-AND-WEBMCP.md)
+- [Performance measurements](docs/PERFORMANCE.md)
+- [Recipes](docs/RECIPES.md)
+- [Server](docs/SERVER.md)
+- [Tooling](docs/TOOLING.md)
+- [Evaluations](docs/EVALUATIONS.md)
+- [Host setup](docs/HOST-SETUP.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Architecture](docs/ARCHITECTURE.md)
+
+## Conventions
+
+Shared contracts go in examples/shared; the active registry is examples/server/framework-app.ts. Views are Angular CLI applications under apps with views/*/view.json markers. Native ng generate view/tool and add-view create contracts and handlers through the registries configured by bridge.config.json.native. Do not edit dist or generated type files by hand. Resource reads use Angular resource(), with optional scoped caching; mutations use explicit commands or draft.save(). Private state becomes model-visible only when explicitly shared. WebMCP requires explicit experimental opt-in and browser support. Workbench host profiles simulate capabilities; external host certification is separate. Local development needs no model API key or vendor account.

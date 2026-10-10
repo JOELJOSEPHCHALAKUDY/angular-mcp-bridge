@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json.schemastore.org/schematics",
+  "schematics": {
+    "ng-add": { "description": "Integrate Angular MCP Bridge into an existing standalone Angular application.", "factory": "./index.cjs#ngAdd", "schema": "./ng-add.schema.json" },
+    "view": { "description": "Generate a typed MCP tool, handler and standalone Angular view.", "factory": "./index.cjs#generateView", "schema": "./view.schema.json" },
+    "tool": { "description": "Generate a typed MCP tool and server handler.", "factory": "./index.cjs#generateTool", "schema": "./tool.schema.json" }
+  }
+}

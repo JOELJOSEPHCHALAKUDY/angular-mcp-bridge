@@ -1,0 +1,5 @@
+{
+  "schematics": {
+    "native-config-v1": { "version": "0.1.0", "description": "Normalize native generator configuration and add local diagnostics scripts.", "factory": "./index.cjs#migrateNative" }
+  }
+}

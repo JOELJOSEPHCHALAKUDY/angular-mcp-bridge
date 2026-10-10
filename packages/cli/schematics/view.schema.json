@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema", "type": "object", "additionalProperties": false,
+  "required": ["name"],
+  "properties": {
+    "name": { "type": "string", "$default": { "$source": "argv", "index": 0 }, "description": "View identifier and new Angular project name." },
+    "tool": { "type": "string", "description": "Tool name; defaults to open_<view>." },
+    "port": { "type": "integer", "minimum": 1, "maximum": 65535, "description": "Preferred Angular dev port; occupied ports are remapped by bridge dev." }
+  }
+}

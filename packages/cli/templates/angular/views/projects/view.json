@@ -1,0 +1,6 @@
+{
+  "name": "projects",
+  "project": "demo",
+  "description": "An Angular project browser with typed tools and reactive details.",
+  "devPort": 4201
+}

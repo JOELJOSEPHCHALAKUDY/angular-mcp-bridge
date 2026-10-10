@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "esModuleInterop": true,
+    "declaration": true,
+    "sourceMap": true,
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "paths": {
+      "@angular-mcp-bridge/angular/forms": ["./packages/angular/forms/public-api.ts"],
+      "@angular-mcp-bridge/angular/webmcp": ["./packages/angular/webmcp/public-api.ts"],
+      "@angular-mcp-bridge/angular": [
+        "./packages/angular/src/public-api.ts"
+      ],
+      "@angular-mcp-bridge/contracts": [
+        "./packages/contracts/src/index.ts"
+      ],
+      "@angular-mcp-bridge/server": [
+        "./packages/server/src/index.ts"
+      ],
+      "@angular-mcp-bridge/testing": [
+        "./packages/testing/src/index.ts"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "strictInjectionParameters": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "lab",
+  "project": "lab",
+  "description": "An Angular integration lab for resources, model context and host APIs.",
+  "devPort": 4202
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@angular-mcp-bridge/testing",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "description": "Model-driven MCP tool evaluations and transcript assertions",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@angular-mcp-bridge/server": "0.1.0",
+    "@angular-mcp-bridge/contracts": "0.1.0",
+    "@modelcontextprotocol/client": "^2.3.1",
+    "@modelcontextprotocol/server": "^2.3.1"
+  },
+  "peerDependencies": {
+    "ai": "^7.0.0"
+  },
+  "author": "Joel Joseph",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge.git",
+    "directory": "packages/testing"
+  },
+  "homepage": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/JOELJOSEPHCHALAKUDY/angular-mcp-bridge/issues"
+  }
+}
