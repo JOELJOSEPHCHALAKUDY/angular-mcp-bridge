@@ -39,6 +39,7 @@ describe('Angular native schematic collection', () => {
     expect(tree.readContent('/src/app/app.config.ts')).toContain('provideMcpBridge({ name: "existing" })');
     expect(readJson(tree, '/bridge.config.json')).toMatchObject({ defaultView: 'existing', server: { entry: 'mcp/main.ts', tsConfig: 'tsconfig.mcp.json' }, native: { project: 'existing', contracts: 'mcp/tools.ts', handlers: 'mcp/handlers.ts' } });
     expect(tree.readContent('/mcp/main.ts')).toContain("assets: { directory: resolve('dist/assets')");
+    expect(tree.readContent('/mcp/main.ts')).toContain('name: "existing"');
     expect(readJson(tree, '/mcp/package.json')).toEqual({ private: true, type: 'module' });
     expect(readJson(tree, '/package.json').type).toBeUndefined();
     expect(tree.readContent('/apps/mcp-workbench/src/app.ts')).toContain('Workbench');

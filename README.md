@@ -49,7 +49,7 @@ The bridge supplies the connection, typed contracts, Angular signals, generators
 - **Angular all the way.** Standalone components, signals, dependency injection, `resource()` and `DestroyRef`. No React runtime.
 - **Develop without a host account.** The Workbench simulates a host locally, with an inspector, saved inputs, fixtures and host profiles.
 - **Works with your existing app.** `ng add` integrates the bridge without touching your UI; `ng generate` adds typed tools and views.
-- **Built on the official SDKs.** Runs on `@modelcontextprotocol/*`, with optional OAuth, middleware, events and Signal Forms.
+- **Built on the official SDKs, with OAuth.** Runs on `@modelcontextprotocol/*`. Optional OAuth 2.1 sign-in (protected-resource metadata and JWT verification, with helpers for Auth0, Clerk, WorkOS, Stytch, Descope and custom issuers) for ChatGPT and Claude connectors, plus middleware, events and Signal Forms. See [Connect a host](docs/HOST-SETUP.md).
 
 ## Quickstart
 

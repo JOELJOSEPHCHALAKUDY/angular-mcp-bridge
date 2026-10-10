@@ -9,7 +9,7 @@ First get the demo working locally with [Getting started](GETTING-STARTED.md) an
 | Local workbench | Use the URL printed by `npm run dev`. Its proxy and view mappings are configured automatically. |
 | Local MCP inspection | Connect an MCP client to the printed MCP URL, such as `http://127.0.0.1:3000/mcp`. |
 | A host running on your computer | Use its MCP connection settings and the local MCP URL if it supports Streamable HTTP. |
-| ChatGPT or another remote host | Provide a publicly reachable HTTPS MCP URL, ending in `/mcp`. |
+| ChatGPT, Claude or another remote host | Provide a publicly reachable HTTPS MCP URL, ending in `/mcp`. |
 
 Ports in this guide are examples. Development selects free ports; use the printed URLs or `.bridge-runtime.json`. A remote host cannot reach your computer's `localhost` directly.
 
@@ -84,6 +84,24 @@ After schema/UI changes, restart/deploy the server, refresh the connection and u
 
 ChatGPT also documents its own Secure MCP Tunnel connection type. That is an external host feature; this project's `npm run tunnel` command opens a public HTTP tunnel through cloudflared or ngrok.
 
+## Add the server in Claude
+
+Checked 10 October 2026 against Anthropic's [custom connector guide](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp). Labels and plan availability can change.
+
+1. Open **Customize → Connectors** at claude.ai. On Team and Enterprise plans, an owner adds it under **Organization settings → Connectors**, and members then click **Connect**.
+2. Choose **+ Add → Add custom connector**, enter a name and your public MCP URL: `https://your-host.example/mcp`.
+3. Review the authentication settings Claude detected:
+   - **No sign in** for a server with no `oauth` provider.
+   - **Sign in now** or **Sign in when needed** for a server that uses OAuth. For the OAuth client, choose Claude's published identity, automatic registration, or your own client.
+   - **Request headers** for a fixed API key or bearer token when you are not using OAuth.
+4. Click **Add**, then enable the connector in a conversation from the **+** button → **Connectors**.
+
+Claude connects from Anthropic's cloud, so the server must be publicly reachable, and a server behind a firewall must allow [Anthropic's IP ranges](https://platform.claude.com/docs/en/api/ip-addresses). A `localhost` URL will not work; use `npm run tunnel` or a deployed URL.
+
+If you choose your own OAuth client, register the redirect URI that the connector screen shows for your identity provider's allowlist. This project supplies the protected-resource metadata and token verification described below. Whether automatic registration works depends on your identity provider.
+
+This guide has not been verified against a live Claude account. The Workbench simulates a host; test the finished app in Claude itself.
+
 ## Keep HTTP access, widget CSP and OAuth separate
 
 | Setting | What it controls | Example |
@@ -105,7 +123,7 @@ Remote MCP calls usually arrive server-to-server without a browser `Origin`; add
 
 Use the complete [server OAuth example](SERVER.md#add-oauth-when-the-app-needs-private-data) to choose a verifier and declare per-tool schemes/scopes. Keep the resource URL equal to the public MCP URL. The framework supplies protected-resource discovery and challenges; your identity provider supplies authorization, token issuance and client registration.
 
-For ChatGPT, configure authorization-code flow with PKCE S256 and resource-bound access tokens. Copy the **exact redirect URI shown in MCP server management** into the provider's allowlist. ChatGPT may show a connection-specific callback or a stable callback depending on issuer identification. Preserve the exact issuer value and advertise `authorization_response_iss_parameter_supported` when supported. Use the registration mechanism your provider and host support, such as client metadata documents or DCR; preset selection alone does not enable it. [OpenAI authentication setup](https://developers.openai.com/plugins/build/auth)
+For ChatGPT and Claude, configure authorization-code flow with PKCE S256 and resource-bound access tokens. Copy the **exact redirect URI shown in MCP server management** into the provider's allowlist. ChatGPT may show a connection-specific callback or a stable callback depending on issuer identification. Preserve the exact issuer value and advertise `authorization_response_iss_parameter_supported` when supported. Use the registration mechanism your provider and host support, such as client metadata documents or DCR; preset selection alone does not enable it. [OpenAI authentication setup](https://developers.openai.com/plugins/build/auth)
 
 For the local workbench:
 
