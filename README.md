@@ -2,6 +2,70 @@
 
 Build interactive MCP Apps with Angular 22.2.2. Define a typed tool, write a standalone Angular view, and test them together in the local workbench. Angular signals, dependency injection, `resource()` and `DestroyRef` handle view state and cleanup.
 
+## How it works
+
+An MCP App is a tool the AI can call, plus a small web page (the **view**) the host shows inside the chat. This project lets you build both with typed code and write the view in Angular.
+
+```mermaid
+flowchart TD
+  subgraph You["What you write"]
+    C["Contract: tool name, input and output schemas - Zod"]
+    H["Handler: server function that returns the result"]
+    V["View: standalone Angular component"]
+  end
+
+  C --> H
+  C --> V
+
+  subgraph Build["Build"]
+    B["Angular CLI builds each view into one standalone HTML file"]
+  end
+  V --> B
+
+  subgraph Server["Your MCP server  /mcp"]
+    S["Registers the tool, validates input and output, serves the view as a ui:// resource"]
+  end
+  H --> S
+  B --> S
+
+  subgraph Runtime["At runtime"]
+    U["User asks the AI a question"]
+    M["AI model picks your tool"]
+    Host["Host app: ChatGPT, Claude, VS Code - or the local Workbench"]
+    I["Host shows the view in a sandboxed iframe"]
+    BR["McpBridge hands the tool result to your component as signals"]
+  end
+  U --> M --> Host
+  Host -->|"tools/call"| S
+  S -->|"result + view"| Host
+  Host --> I --> BR
+  BR -.->|"button click: call tool again, send a message, update model context"| Host
+```
+
+**In plain words**
+
+1. You describe a tool once in a **contract**. Input and output types are shared by the server and the view, so a mismatch fails at compile time.
+2. The **server** runs your handler when the AI calls the tool. It checks the input before the handler runs and the output before it is returned.
+3. The **view** is a normal Angular component. It is built into a single HTML file that the server offers to the host.
+4. The **host** shows that view inside the conversation. `McpBridge` connects the iframe to the host and exposes the tool result, host info and actions as Angular signals.
+5. From the view you can call the tool again, send a follow-up message to the chat, or update what the model can see.
+
+## How to use it
+
+```sh
+npm install
+npm run dev                       # start the server, views and Workbench
+npm run add-view -- greeting      # create a new tool and Angular view
+```
+
+1. **Start:** run `npm run dev` and open the **Workbench** URL it prints. The Workbench plays the role of the host, so you need no ChatGPT or Claude account to develop.
+2. **Create:** `npm run add-view -- greeting` generates a working tool (`examples/generated/open_greeting/contract.ts` and `handler.ts`) and a view (`apps/greeting/src/app.ts`).
+3. **Try:** in the Workbench select the tool, fill in the arguments and click **Run tool**. The view renders in the preview and the inspector shows the raw request and result.
+4. **Edit:** change the schemas in `contract.ts`, the logic in `handler.ts` and the template in `app.ts`. Choose **Angular dev server · HMR** as the preview source to see edits instantly.
+5. **Ship:** `npm run build` writes the server bundle and one HTML file per view. `npm run start` serves them. Follow [Host setup](docs/HOST-SETUP.md) to connect ChatGPT, Claude or VS Code, and [Server guide](docs/SERVER.md) for authentication.
+
+The step-by-step version is in [Build your first tool and view](docs/FIRST-APP.md).
+
 ## Try the included app
 
 From this folder, with Node 24.15.0 or another [supported version](docs/GETTING-STARTED.md#before-you-start):
