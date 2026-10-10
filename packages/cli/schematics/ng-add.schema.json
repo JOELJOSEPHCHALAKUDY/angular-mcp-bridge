@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema", "type": "object", "additionalProperties": false,
   "properties": {
     "project": { "type": "string", "description": "Existing Angular application; inferred when only one application exists." },
-    "local": { "type": "string", "description": "Framework checkout with prepared dist/tarballs, required until npm publication." },
+    "local": { "type": "string", "description": "Advanced: install the framework from a checkout's prepared dist/tarballs instead of npm." },
     "skipInstall": { "type": "boolean", "default": false, "description": "Update dependencies without scheduling npm install." }
   }
 }

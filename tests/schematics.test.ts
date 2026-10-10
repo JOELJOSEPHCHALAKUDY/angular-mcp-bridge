@@ -22,6 +22,11 @@ async function existing() {
 }
 async function integrated() { const value = await existing(); return { ...value, tree: await value.runner.runSchematic('ng-add', { local: value.local, skipInstall: true }, value.tree) }; }
 describe('Angular native schematic collection', () => {
+  it('explains how to proceed when the app is older than Angular 22', async () => {
+    const { runner, tree: original, local } = await existing();
+    const pkg = readJson(original, '/package.json'); pkg.dependencies['@angular/core'] = '^19.2.0'; original.overwrite('/package.json', JSON.stringify(pkg));
+    await expect(runner.runSchematic('ng-add', { local, skipInstall: true }, original.branch())).rejects.toThrow('ng update @angular/core');
+  });
   it('integrates an existing standalone app, preserving UI/scripts and installing a real local server/workbench', async () => {
     const { runner, tree: original, local } = await existing();
     original.overwrite('/src/app/app.html', '<h1>My existing product</h1>');

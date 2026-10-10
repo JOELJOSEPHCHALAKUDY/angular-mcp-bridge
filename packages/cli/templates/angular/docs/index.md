@@ -6,6 +6,7 @@ Start locally, build one tool and view, then add the capabilities your app needs
 
 1. [Getting started](GETTING-STARTED.md): prerequisites, two-command startup, the workbench and the folder map.
 2. [Your first tool and view](FIRST-APP.md): a complete greeting tool rendered by a standalone Angular component.
+   Already have an Angular app? Use [Add MCP Apps to an existing Angular app](EXISTING-APP.md) instead.
 3. [Angular recipes](RECIPES.md): common tasks such as loading data, sharing state and registering UI tools.
 
 ## Build and test

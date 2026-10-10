@@ -50,6 +50,17 @@ npm run add-view -- greeting
 
 See [Build your first tool and view](docs/FIRST-APP.md) for the walkthrough.
 
+## Add it to an existing Angular app
+
+Already have an Angular 22 standalone app? One command adds the bridge, a server and the Workbench without touching your UI:
+
+```sh
+npx ng add @angular-mcp-bridge/cli
+npm run mcp:dev
+```
+
+Open the Workbench URL it prints and your existing app appears as the tool's view. Older Angular? `ng add` tells you to run `ng update` first. The [existing-app guide](docs/EXISTING-APP.md) covers what changes, how to make the app work inside a host and how to undo it.
+
 ## How it works
 
 An MCP App is a tool the AI can call, plus a small web page (the **view**) the host shows inside the chat. This project lets you build both with typed code and write the view in Angular.

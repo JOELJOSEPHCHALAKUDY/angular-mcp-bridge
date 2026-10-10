@@ -4,11 +4,10 @@ The CLI package includes a genuine Angular schematic collection. Angular CLI run
 
 ## Add the bridge to an existing app
 
-From an existing **Angular 22 standalone application**, install the CLI from npm and run `ng add`. Replace `my-app` with your Angular project name:
+From an existing **Angular 22 standalone application**, run `ng add`; Angular installs the CLI package for you. Add `--project my-app` if the workspace has several applications. The [existing-app guide](EXISTING-APP.md) is the shorter walkthrough.
 
 ```sh
-npm install --save-dev @angular-mcp-bridge/cli
-npx ng add @angular-mcp-bridge/cli --project my-app
+npx ng add @angular-mcp-bridge/cli
 npm run mcp:dev
 ```
 
