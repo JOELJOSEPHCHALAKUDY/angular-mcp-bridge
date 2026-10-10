@@ -1,4 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 48" width="120" height="103" role="img" aria-label="Angular MCP Bridge logo">
-  <rect width="56" height="48" fill="#ffffff"/>
-  <text x="4" y="38" fill="#242824" font-family="Inter,ui-sans-serif,system-ui,-apple-system,sans-serif" font-size="36" font-weight="620" letter-spacing="-5.333333">A<tspan fill="#557b2f">↗</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 103" width="120" height="103" role="img" aria-label="Angular MCP Bridge logo">
+  <rect width="120" height="103" fill="#ffffff"/>
+  <g fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#242824">
+      <path d="M14 84 L40 22 L66 84"/>
+      <path d="M24 62 H56"/>
+    </g>
+    <g stroke="#557b2f">
+      <path d="M74 66 L106 34"/>
+      <path d="M84 30 H106 V52"/>
+    </g>
+  </g>
 </svg>

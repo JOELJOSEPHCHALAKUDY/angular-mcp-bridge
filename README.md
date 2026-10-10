@@ -13,7 +13,7 @@
   <a href="https://www.npmjs.com/package/@angular-mcp-bridge/cli"><img src="https://img.shields.io/npm/v/@angular-mcp-bridge/cli?color=537435&label=npm" alt="npm version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-537435" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/Angular-22-537435" alt="Angular 22">
-  <img src="https://img.shields.io/badge/Node-%E2%89%A524.15-537435" alt="Node 24.15 or newer">
+  <img src="https://img.shields.io/badge/Node-%E2%89%A522.22.3-537435" alt="Node 22.22.3 or newer">
 </p>
 
 <p align="center">
@@ -30,7 +30,7 @@
 
 Angular MCP Bridge lets an AI call your backend and show an interactive Angular view inside the conversation.
 
-For example, with a CV app, a user could ask **“Show me Joel’s experience.”** Your server tool returns your experience data, and the host displays your Angular CV view. The user can then interact with that view.
+For example, with a CV app, a user could ask **“Show me my work experience.”** Your server tool returns your experience data, and the host displays your Angular CV view. The user can then interact with that view.
 
 You build two parts:
 
@@ -43,6 +43,14 @@ You build two parts:
 
 The bridge supplies the connection, typed contracts, Angular signals, generators and local tooling. You supply your UI, data and server handlers.
 
+## Why Angular MCP Bridge
+
+- **One typed contract.** Define a tool's input and output once with Zod. The server handler and the Angular view share the types, so a mismatch fails at compile time.
+- **Angular all the way.** Standalone components, signals, dependency injection, `resource()` and `DestroyRef`. No React runtime.
+- **Develop without a host account.** The Workbench simulates a host locally, with an inspector, saved inputs, fixtures and host profiles.
+- **Works with your existing app.** `ng add` integrates the bridge without touching your UI; `ng generate` adds typed tools and views.
+- **Built on the official SDKs.** Runs on `@modelcontextprotocol/*`, with optional OAuth, middleware, events and Signal Forms.
+
 ## Quickstart
 
 Choose the path that matches your project:
@@ -53,7 +61,7 @@ Choose the path that matches your project:
 | I want a new MCP App | [Create a new project](#new-project) |
 | I only want to try the repository demo | [Run the included demo](#run-the-included-demo) |
 
-Use **Angular 22 with standalone bootstrap** for existing-app integration. Use Node **24.15+ within 24.x**, **22.22.3+ within 22.x**, or **26+**. See [prerequisites](docs/GETTING-STARTED.md#before-you-start). NgModule apps need a standalone bootstrap before using `ng add`.
+Requirements: Node **22.22.3+**, **24.15+** or **26+** (see [prerequisites](docs/GETTING-STARTED.md#before-you-start)). For an existing app, Angular **22** with a standalone bootstrap; NgModule apps must migrate to `bootstrapApplication` before `ng add`.
 
 ### Existing Angular project
 
@@ -126,6 +134,42 @@ New starters use these paths:
 Follow [Build your first tool and view](docs/FIRST-APP.md) for complete file contents and a working greeting example. New starters use `npm run dev`, `build`, `start` and `doctor`; existing-app integrations use their `mcp:*` equivalents.
 
 ## How it works
+
+```mermaid
+flowchart TD
+  subgraph You["What you write"]
+    C["Contract: tool name, input and output schemas - Zod"]
+    H["Handler: server function that returns the result"]
+    V["View: standalone Angular component"]
+  end
+
+  C --> H
+  C --> V
+
+  subgraph Build["Build"]
+    B["Angular CLI builds each view into one standalone HTML file"]
+  end
+  V --> B
+
+  subgraph Server["Your MCP server  /mcp"]
+    S["Registers the tool, validates input and output, serves the view as a ui:// resource"]
+  end
+  H --> S
+  B --> S
+
+  subgraph Runtime["At runtime"]
+    U["User asks the AI a question"]
+    M["AI model picks your tool"]
+    Host["Host app: ChatGPT, Claude, VS Code - or the local Workbench"]
+    I["Host shows the view in a sandboxed iframe"]
+    BR["McpBridge hands the tool result to your component as signals"]
+  end
+  U --> M --> Host
+  Host -->|"tools/call"| S
+  S -->|"result + view"| Host
+  Host --> I --> BR
+  BR -.->|"button click: call tool again, send a message, update model context"| Host
+```
 
 1. The host discovers your tool names, descriptions and argument schemas from the MCP server.
 2. When the host calls a tool, the server validates its input and runs your handler.
